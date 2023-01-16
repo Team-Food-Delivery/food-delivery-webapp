@@ -8,6 +8,4 @@
 4. Once It is done, run `npm start` to open the React Native Bundler
 5. Install `expo` on your device from Apple Store or Google Place Store
 6. Scan the QR code using your phone
----
----
----
+
