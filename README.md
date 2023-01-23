@@ -8,3 +8,4 @@
 3. Follow expo instructions on the terminal and open the application
 4. Optional: For Apple, install `Expo Go` app and for Google Play Store, instal `Expo` app.
 4. Open expo app and scan the QR code.
+...
