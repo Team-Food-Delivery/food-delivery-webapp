@@ -1,8 +1,22 @@
 import React from "react";
 import ImageBG from '../img/HomeBackGround.jpg'
+import LoginSignUpContainer from "./containers/LoginSignUpContainer";
 import { Text, StyleSheet, View, Box, ImageBackground } from "react-native";
 
-
+const styles = StyleSheet.create({
+  backgroundimage:{
+    flex: 1,
+    alignItems: 'stretch',
+    justifyContent: 'center',
+  },
+  title:{
+    textAlign: 'center',
+    fontSize: 100,
+    fontFamily: 'Arial',
+    color: '#ffffff',
+    opacity: 50,
+  } 
+});
 
 const HomeScreen = () => {
   return (
@@ -12,26 +26,11 @@ const HomeScreen = () => {
       <Text style={styles.title}>
         FOOD DELIVERY
       </Text>
+      <LoginSignUpContainer/>
     </ImageBackground>
-
   </View>
   );
 };
-
-const styles = StyleSheet.create({
-    backgroundimage:{
-      flex: 1,
-      alignItems: 'stretch',
-      justifyContent: 'center',
-    },
-    title:{
-      textAlign: 'center',
-      fontSize: 100,
-      fontFamily: 'Arial',
-      color: '#ffffff',
-      opacity: 50,
-    } 
-});
 
 export default HomeScreen;
 
