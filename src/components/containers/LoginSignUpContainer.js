@@ -1,5 +1,6 @@
-import React from "react";
-import { Text, StyleSheet, SafeAreaView, View, Pressable, ImageBackground } from "react-native";
+import { Text, StyleSheet, SafeAreaView, View, Pressable } from "react-native";
+import SignUpScreen from "../SignUpScreen";
+import HomeScreen from '../SignUpScreen';
 
 const styles = StyleSheet.create({
   container: {
@@ -68,6 +69,7 @@ const LoginSignUpContainer = () => {
           <Text>Sign Up</Text>
         </Pressable>
       </View>
+      <SignUpScreen />
     </SafeAreaView>
   )
 }
