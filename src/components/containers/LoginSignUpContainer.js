@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
   container: {
     zIndex: 1,
     position: "absolute",
-    backgroundColor: "#000",
+    backgroundColor: "#fff",
     left: 0,
     right: 0,
     marginLeft: "auto",
@@ -15,17 +15,42 @@ const styles = StyleSheet.create({
     borderRadius: "50px"
   },
   buttonContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
     top: "10%",
     width: "80%",
-    backgroundColor: "royalblue",
     margin: "2em",
-    display: "flex",
-    justifyContent: "space-between",
-    position: "relative"
+    position: "relative",
+    backgroundColor: "royalblue",
+    borderRadius: "100px",
+    padding: "10px"
   },
   buttons: {
     width: "30%",
-    backgroundColor: "white",
+    backgroundColor: "purple",
+  },
+  moveButton: {
+    position: "absolute",
+    margin: "-8px",
+    width: "50%",
+    padding: "8px",
+    border: "none",
+    outline: "none",
+    borderRadius: "50px",
+    backgroundColor: "#fff",
+    textAlign: "center",
+  },
+  actionButton: {
+    width: "50%",
+    outline: "none",
+    border: "none",
+    backgroundColor: "transparent",
+    borderRadius: "50px",
+    textAlign: "center"
+  },
+  buttonTextColor: {
+    color: "#fff"
   }
 })
 
@@ -33,10 +58,13 @@ const LoginSignUpContainer = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.buttonContainer}>
-        <Pressable style={styles.buttons}>
-          <Text>Login</Text>
+        <Pressable style={[styles.actionButton]}>
+          <Text style={styles.buttonTextColor}>Sign Up</Text>
         </Pressable>
-        <Pressable style={styles.buttons}>
+        <Pressable style={styles.actionButton}>
+          <Text style={styles.buttonTextColor}>Login</Text>
+        </Pressable>
+        <Pressable style={styles.moveButton}>
           <Text>Sign Up</Text>
         </Pressable>
       </View>
