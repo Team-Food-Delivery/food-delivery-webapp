@@ -1,11 +1,9 @@
 import { useState } from 'react'
 import FormInput from './elements/FormInput';
 import FormSubmitButton from './elements/FormSubmit';
-import { Text, TextInput, StyleSheet, SafeAreaView, View, Pressable } from "react-native";
-
-const isValidObjField = () => {
-  return Object.values(userInfo).every(val => val.trim());
-}
+import validateRegister from './utiities/formValidation';
+import ValidationError from './elements/validationError';
+import { StyleSheet, SafeAreaView, View } from "react-native";
 
 const SignUpScreen = () => {
   const [userInfo, setUserInfo] = useState({
@@ -14,8 +12,7 @@ const SignUpScreen = () => {
     confirmPassword: ''
   })
 
-  const [error, setError] = useState()
-
+  const [error, setError] = useState({})
   const { email, password, confirmPassword } = userInfo;
 
   const handleOnChangeText = (val, fieldName) => {
@@ -24,9 +21,9 @@ const SignUpScreen = () => {
   }
 
   const isValidForm = () => {
-    if(!isValidObjField(userInfo)) {
+      setError(validateRegister(userInfo))
+      console.log(validateRegister(userInfo))
 
-    }
   }
 
   const submitForm = () => {
@@ -35,8 +32,18 @@ const SignUpScreen = () => {
     }
   }
 
+  const styles = StyleSheet.create({
+    signUpContainer: {
+      top: "40px",
+      alignItems: 'center',
+    },
+    submitButton: {
+      width: "85%",
+    }
+  })
+
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.signUpContainer}>
       <View>
         <FormInput 
           autoCapitalize='none'
@@ -44,6 +51,7 @@ const SignUpScreen = () => {
           value={email}
           onChangeText={val => handleOnChangeText(val, 'email')}
         />
+        {error.email && <ValidationError message={error.email}/>}
         <FormInput 
           placeholder="Password"
           secureTextEntry={true}
@@ -56,9 +64,10 @@ const SignUpScreen = () => {
           value={confirmPassword}
           onChangeText={val => handleOnChangeText(val, 'confirmPassword')}
         />
+        {error.password && <ValidationError message={error.password}/>}
       </View>
-      <View>
-        <FormSubmitButton onPress={submitForm} title={'Sign Up'}/>
+      <View style={styles.submitButton}>
+        <FormSubmitButton onPress={isValidForm} title={'Sign Up'}/>
       </View>
     </SafeAreaView>
   )
