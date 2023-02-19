@@ -7,4 +7,11 @@ const poolData = {
 }
 console.log('poolData:',poolData)
 
-export default new CognitoUserPool(poolData);
+let userpool;
+try {
+    userpool = new CognitoUserPool(poolData)
+} catch(e) {
+    console.error("Amazon Cognito Error")
+}
+
+export default userpool;
