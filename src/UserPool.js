@@ -11,7 +11,7 @@ let userpool;
 try {
     userpool = new CognitoUserPool(poolData)
 } catch(e) {
-    console.error("Amazon Cognito Error")
+    console.error(e)
 }
 
 export default userpool;
