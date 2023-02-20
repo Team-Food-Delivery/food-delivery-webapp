@@ -1,12 +1,11 @@
-import useForm from './utiities/useForm';
-import FormInput from './elements/FormInput';
-import FormSubmitButton from './elements/FormSubmit';
-import validateRegister from './utiities/formValidation';
-
-import ValidationError from './elements/validationError';
-
-import UserPool from '../UserPool';
 import { StyleSheet, SafeAreaView, View } from "react-native";
+import { useNavigation } from '@react-navigation/native';
+import useForm from '../utiities/useForm';
+import FormInput from '../elements/FormInput';
+import FormSubmitButton from '../elements/FormSubmit';
+import validateRegister from '../utiities/formValidation';
+import ValidationError from '../elements/validationError';
+import UserPool from '../../UserPool';
 
 const SignUpScreen = () => {
   const { handleChange, handleSubmit, values, errors} = useForm({
@@ -15,13 +14,16 @@ const SignUpScreen = () => {
     confirmPassword: ''
   }, submitForm, validateRegister)
 
+  const navigation = useNavigation()
+
   function submitForm() {
-    UserPool.signUp(values.email, values.password, [], null, (err, data) => {
-      if(err) {
-          console.error('Error:', err)
-      }
-      console.log('Data:', data)
-    })
+    navigation.navigate('Verification')
+    // UserPool.signUp(values.email, values.password, [], null, (err, data) => {
+    //   if(err) {
+    //       console.error('Error:', err)
+    //   }
+    //   console.log('Data:', data)
+    // })
   }
 
   const styles = StyleSheet.create({
@@ -60,7 +62,7 @@ const SignUpScreen = () => {
         {errors.password && <ValidationError message={errors.password}/>}
       </View>
       <View style={styles.submitButton}>
-        <FormSubmitButton onPress={handleSubmit} title={'Sign Up'}/>
+        <FormSubmitButton onPress={submitForm} title={'Sign Up'}/>
       </View>
     </SafeAreaView>
   )

@@ -1,6 +1,6 @@
 import React from "react";
-import ImageBG from '../img/HomeBackGround.jpg'
-import LoginSignUpContainer from "./containers/LoginSignUpContainer";
+import ImageBG from '../../img/HomeBackGround.jpg'
+import LoginSignUpContainer from "../containers/LoginSignUpContainer";
 import { Text, StyleSheet, View, Box, ImageBackground } from "react-native";
 
 const styles = StyleSheet.create({

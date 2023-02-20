@@ -7,8 +7,8 @@ import {
   Animated
 } from "react-native";
 import React, { useState, useEffect, useRef } from 'react'
-import SignUpScreen from "../SignUpScreen";
-import HomeScreen from '../SignUpScreen';
+import SignUpScreen from "../pages/SignUpScreen";
+import HomeScreen from '../pages/HomeScreen';
 
 const LoginSignUpContainer = () => {
   const [active, setActive] = useState(false);
@@ -60,18 +60,12 @@ const LoginSignUpContainer = () => {
         }}>
         </Animated.View>
         <TouchableOpacity style={styles.buttons} onPress={() => setActive(true)}>
-          <Text 
-            style={
-              [active ? styles.activeTextColor : styles.inactiveTextColor, styles.buttonText]
-            }
-          >
+          <Text style={[active ? styles.activeTextColor : styles.inactiveTextColor, styles.buttonText]}>
             Login
           </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttons} onPress={() => setActive(false)}>
-          <Text 
-            style={[active ? styles.inactiveTextColor : styles.activeTextColor, styles.buttonText]}
-          >
+          <Text style={[active ? styles.inactiveTextColor : styles.activeTextColor, styles.buttonText]}>
             Sign Up
           </Text>
         </TouchableOpacity>
