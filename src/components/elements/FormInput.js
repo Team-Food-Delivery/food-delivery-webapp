@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, TextInput } from 'react-native';
+import { StyleSheet, Text, TextInput } from 'react-native';
 
 const FormInput = (props) => {
   const { placeholder, label } = props;
