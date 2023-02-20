@@ -3,6 +3,7 @@ import FormInput from './elements/FormInput';
 import FormSubmitButton from './elements/FormSubmit';
 import validateRegister from './utiities/formValidation';
 import ValidationError from './elements/validationError';
+import UserPool from '../UserPool';
 import { StyleSheet, SafeAreaView, View } from "react-native";
 
 const SignUpScreen = () => {
@@ -22,23 +23,28 @@ const SignUpScreen = () => {
 
   const isValidForm = () => {
       setError(validateRegister(userInfo))
-      console.log(validateRegister(userInfo))
+      return error
 
   }
 
   const submitForm = () => {
-    if(isValidForm()) {
-
-    }
+    
+    UserPool.signUp(email, password, [], null, (err, data) => {
+      if(err) {
+          console.error('Error:', err)
+      }
+      console.log('Data:', data)
+    })
+    console.log(`Email: ${email}\nPassword: ${password}`)
   }
 
   const styles = StyleSheet.create({
     signUpContainer: {
-      top: "40px",
-      alignItems: 'center',
+      width: "80vw"
     },
     submitButton: {
       width: "85%",
+      margin: "auto"
     }
   })
 
@@ -47,7 +53,7 @@ const SignUpScreen = () => {
       <View>
         <FormInput 
           autoCapitalize='none'
-          placeholder="Enter Email or Username"
+          placeholder="Enter Email"
           value={email}
           onChangeText={val => handleOnChangeText(val, 'email')}
         />
@@ -67,7 +73,7 @@ const SignUpScreen = () => {
         {error.password && <ValidationError message={error.password}/>}
       </View>
       <View style={styles.submitButton}>
-        <FormSubmitButton onPress={isValidForm} title={'Sign Up'}/>
+        <FormSubmitButton onPress={submitForm} title={'Sign Up'}/>
       </View>
     </SafeAreaView>
   )

@@ -26,8 +26,8 @@ const HomeScreen = () => {
       <Text style={styles.title}>
         FOOD DELIVERY
       </Text>
-      <LoginSignUpContainer/>
     </ImageBackground>
+    <LoginSignUpContainer/>
   </View>
   );
 };
