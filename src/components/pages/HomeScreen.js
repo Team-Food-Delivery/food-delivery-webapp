@@ -1,6 +1,6 @@
 import React from "react";
 import ImageBG from '../../img/HomeBackGround.jpg'
-import LoginSignUpContainer from "../containers/LoginSignUpContainer";
+import LoginSignUp from "../containers/LoginSignUp";
 import { Text, StyleSheet, View, Box, ImageBackground } from "react-native";
 
 const styles = StyleSheet.create({
@@ -27,7 +27,7 @@ const HomeScreen = () => {
         FOOD DELIVERY
       </Text>
     </ImageBackground>
-    <LoginSignUpContainer/>
+    <LoginSignUp/>
   </View>
   );
 };

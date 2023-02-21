@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { StyleSheet, SafeAreaView, View } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import useForm from '../utiities/useForm';
@@ -13,17 +14,20 @@ const SignUpScreen = () => {
     password: '',
     confirmPassword: ''
   }, submitForm, validateRegister)
+  const [errorMessage, setErrorMessage] = useState("")
 
   const navigation = useNavigation()
 
   function submitForm() {
-    navigation.navigate('Verification')
-    // UserPool.signUp(values.email, values.password, [], null, (err, data) => {
-    //   if(err) {
-    //       console.error('Error:', err)
-    //   }
-    //   console.log('Data:', data)
-    // })
+    UserPool.signUp(values.email, values.password, [], null, (err, data) => {
+      if(err.name === 'UsernameExistsException') {
+        setErrorMessage('An account with the given email already exists.')
+      } else {
+        setErrorMessage("");
+        navigation.navigate('Verification');
+      }
+      // console.log('Data:', data)
+    })
   }
 
   const styles = StyleSheet.create({
@@ -42,6 +46,7 @@ const SignUpScreen = () => {
         <FormInput 
           autoCapitalize='none'
           autofocus={true}
+          onFocus={() => setErrorMessage("")}
           placeholder="Enter Email"
           value={values.email}
           onChangeText={val => handleChange(val, 'email')}
@@ -60,6 +65,9 @@ const SignUpScreen = () => {
           onChangeText={val => handleChange(val, 'confirmPassword')}
         />
         {errors.password && <ValidationError message={errors.password}/>}
+      </View>
+      <View>
+      {errorMessage && <ValidationError message={errorMessage}/>}
       </View>
       <View style={styles.submitButton}>
         <FormSubmitButton onPress={submitForm} title={'Sign Up'}/>
