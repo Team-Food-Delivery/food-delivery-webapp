@@ -95,7 +95,7 @@ const UserVerification = () => {
       <Image style={styles.icon} source={source} />
       <Text style={styles.subTitle}>
         Please enter the verification code{'\n'}
-        we send to your email address
+        we sent to your email address.
       </Text>
 
       <CodeField
@@ -110,8 +110,11 @@ const UserVerification = () => {
         renderCell={renderCell}
       />
       <View style={styles.resendView}>
-        <Text>Didn't receive a code?
-          <TouchableOpacity style={styles.resendButtonText}> Resend</TouchableOpacity>
+        <Text>
+          Didn't receive a code?
+          <TouchableOpacity style={styles.resendButtonText}> 
+            <Text> Resend</Text>
+          </TouchableOpacity>
         </Text>
       </View>
       <View style={styles.nextButton}>

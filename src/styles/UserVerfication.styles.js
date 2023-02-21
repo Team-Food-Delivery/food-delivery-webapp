@@ -41,7 +41,9 @@ const styles = StyleSheet.create({
 
   root: {
     minHeight: 800,
+    maxWidth: "100vw",
     padding: 20,
+    margin: "auto"
   },
   title: {
     paddingTop: 50,
