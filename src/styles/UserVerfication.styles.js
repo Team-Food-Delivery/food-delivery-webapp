@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 export const CELL_SIZE = 55;
 export const CELL_BORDER_RADIUS = 8;
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
 
   root: {
     minHeight: 800,
-    maxWidth: "100vw",
+    maxWidth: Dimensions.get('window').width,
     padding: 20,
     margin: "auto"
   },
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     margin: "auto"
   },
   resendView: {
-    marginTop: "20px",
+    marginTop: 20,
     display: "flex",
     flexDirection:'row',
     justifyContent: "center"

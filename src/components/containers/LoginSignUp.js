@@ -7,6 +7,7 @@ import {
   Animated
 } from "react-native";
 import React, { useState, useEffect, useRef } from 'react'
+import { Dimensions } from "react-native";
 import SignUpScreen from "../pages/SignUpScreen";
 import HomeScreen from '../pages/HomeScreen';
 
@@ -49,7 +50,7 @@ const LoginSignUp = () => {
           height: 41 - 2 * 2,
           top: 1,
           bottom: 2,
-          borderRadius: "100px",
+          borderRadius: 100,
           width: width / 2 - 2 - 5*2,
           transform: [
             {
@@ -84,23 +85,23 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     left: 0,
     right: 0,
-    marginLeft: "auto",
-    marginRight: "auto",
-    maxWidth: "80vw",
+    marginLeft: 0,
+    marginRight: 0,
+    maxWidth: Dimensions.get('window').width,
     height: "60%",
-    borderRadius: "50px"
+    borderRadius: 50
   },
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    width: "80%",
+    width: Dimensions.get('window').width * 0.8,
     // position: "relative",
     backgroundColor: "#fff",
-    borderRadius: "100px",
+    borderRadius: 100,
     borderColor: "#9e9e9e",
     borderWidth: 0.1,
-    padding: "10px",
-    top: "-10%"
+    padding: 10,
+    top: -10
   },
   buttons: {
     flex: 1,
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   buttonText: {
-    width: "50%",
+    width: Dimensions.get('window').width / 2,
     textAlign: "center",
     fontWeight: "bold"
   },

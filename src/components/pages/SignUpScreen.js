@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { StyleSheet, SafeAreaView, View } from "react-native";
+import { StyleSheet, SafeAreaView, View, Dimensions } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import useForm from '../utiities/useForm';
 import FormInput from '../elements/FormInput';
 import FormSubmitButton from '../elements/FormSubmit';
 import validateRegister from '../utiities/formValidation';
-import ValidationError from '../elements/validationError';
+import ValidationError from '../elements/ValidationError';
 import UserPool from '../../UserPool';
 
 const SignUpScreen = () => {
@@ -32,11 +32,12 @@ const SignUpScreen = () => {
 
   const styles = StyleSheet.create({
     signUpContainer: {
-      width: "80vw"
+      width: Dimensions.get('window').width
     },
     submitButton: {
-      width: "85%",
-      margin: "auto"
+      maxWidth: Dimensions.get('window').width,
+      alignItems: 'center', 
+      justifyContent: 'center'
     }
   })
 

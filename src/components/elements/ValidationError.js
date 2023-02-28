@@ -5,8 +5,8 @@ const ValidationError = ({message}) => {
     validationStyle: {
       color:'red',
       fontSize: '0.8em',
-      marginBottom: '10px',
-      marginLeft: "15px"
+      marginBottom: 10,
+      marginLeft: 15
     }
   })
   if(message) {

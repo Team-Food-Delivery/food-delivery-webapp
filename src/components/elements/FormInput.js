@@ -5,9 +5,9 @@ const FormInput = (props) => {
 
   const styles = StyleSheet.create({
     inputField: {
-      marginBottom: "20px",
-      padding: "15px",
-      fontSize: "16px"
+      marginBottom: 20,
+      padding: 15,
+      fontSize: 16
     }
   })
 
