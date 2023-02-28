@@ -14,19 +14,21 @@ const SignUpScreen = () => {
     password: '',
     confirmPassword: ''
   }, submitForm, validateRegister)
-  const [errorMessage, setErrorMessage] = useState("")
+  const [submitError, setSubmitError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   function submitForm() {
     UserPool.signUp(values.email, values.password, [], null, (err, data) => {
       if(err.name === 'UsernameExistsException') {
-        setErrorMessage('An account with the given email already exists.')
+        setSubmitError(true);
+        setErrorMessage('An account with the given email already exists.');
       } else {
+        setSubmitError(false);
         setErrorMessage("");
         navigation.navigate('Verification');
       }
-      // console.log('Data:', data)
     })
   }
 
@@ -68,10 +70,10 @@ const SignUpScreen = () => {
         {errors.password && <ValidationError message={errors.password}/>}
       </View>
       <View>
-      {errorMessage && <ValidationError message={errorMessage}/>}
+        {submitError && <ValidationError message={errorMessage}/>}
       </View>
       <View style={styles.submitButton}>
-        <FormSubmitButton onPress={submitForm} title={'Sign Up'}/>
+        <FormSubmitButton onPress={handleSubmit} title={'Sign Up'}/>
       </View>
     </SafeAreaView>
   )

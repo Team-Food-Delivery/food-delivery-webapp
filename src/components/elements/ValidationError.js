@@ -4,7 +4,7 @@ const ValidationError = ({message}) => {
   const style = StyleSheet.create({
     validationStyle: {
       color:'red',
-      fontSize: '0.8em',
+      fontSize: 15,
       marginBottom: 10,
       marginLeft: 15
     }
