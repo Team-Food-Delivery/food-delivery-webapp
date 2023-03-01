@@ -16,7 +16,7 @@ export default function validateRegister(values) {
   } else if((values.password.length || values.confirmPassword.length) > 20) {
     errors.password = 'Password length cannot exceed 20 characters'
   } else if ((values.password.length || values.confirmPassword.length) < 12) {
-    errors.password = 'Password must be more than 8 characters'
+    errors.password = 'Password must be more than 12 characters'
   } else if ((!UP_LOW_NUM_SPECIAL.test(values.password) || !UP_LOW_NUM_SPECIAL.test(values.confirmPassword))) {
     errors.password = 'Password must contain 1 number, upper & lower case letter, and special character'
   }
