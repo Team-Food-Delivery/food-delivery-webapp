@@ -1,5 +1,6 @@
 import { Animated, Image, SafeAreaView, Text, View, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
+import ValidationError from '../elements/ValidationError';
 import AuthService from '../../services/Auth';
 
 import {
@@ -44,6 +45,7 @@ const animateCell = ({hasValue, index, isFocused}) => {
 
 const UserVerification = () => {
   const [value, setValue] = useState('');
+  const [hasError, setHasError] = useState(false)
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
@@ -90,6 +92,19 @@ const UserVerification = () => {
     );
   };
 
+  const resendVerification = () => {
+    AuthService.resendConfirmationCode()
+  }
+
+  const submitVerification = () => {
+    if(value.length <= 5) {
+      setHasError(true);
+    } else {
+      setHasError(false);
+      AuthService.codeRegistration(value)
+    }
+  }
+
   return (
     <SafeAreaView style={styles.root}>
       <Text style={styles.title}>Verification</Text>
@@ -110,16 +125,19 @@ const UserVerification = () => {
         textContentType="oneTimeCode"
         renderCell={renderCell}
       />
+      <View style={styles.errorValidationText}>
+        {hasError && <ValidationError message={'Please make sure your code is 6 digits'}/>}
+      </View>
       <View style={styles.resendView}>
         <Text>
           Didn't receive a code?
-          <TouchableOpacity style={styles.resendButtonText}> 
+          <TouchableOpacity style={styles.resendButtonText} onPress={resendVerification}> 
             <Text style={styles.resendButtonColor}> Resend</Text>
           </TouchableOpacity>
         </Text>
       </View>
       <View style={styles.nextButtonContainer}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={submitVerification}>
           <Text style={styles.nextButtonText}>Verify</Text>
         </TouchableOpacity>
       </View>

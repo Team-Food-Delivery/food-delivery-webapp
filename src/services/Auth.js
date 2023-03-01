@@ -10,37 +10,47 @@ const poolData = {
 const userPool = new CognitoUserPool(poolData);
 
 const userData = {
-  Username: getStorageItem('registeredEmail'),
+  Username: null,
   Pool: userPool
-};
-
-const cognitoUser = new CognitoUser(userData);
+}
 
 const AuthService = {
-  // getUserData(userName) {
-  //   const userData = {
-  //     Username: getStorageItem(userName),
-  //     Pool: userPool
-  //   }
-  //   return userData;
-  // },
   codeRegistration(code) {
-    cognitoUser.confirmRegistration(code, true, function(err, result) {
-      if (err) {
-        alert(err.message || JSON.stringify(err));
-        return;
-      }
-      console.log('call result: ' + result);
-    })
+    getStorageItem('registeredEmail')
+      .then(value => {
+        userData['Username'] = value;
+        if(userData['Username']) {
+          const cognitoUser = new CognitoUser(userData);
+          cognitoUser.confirmRegistration(code, true, function(err, result) {
+            if (err) {
+              alert(err.message || JSON.stringify(err));
+              return;
+            }
+            //Need to create a promise so it navigates to login page after success
+            console.log('call result: ' + result);
+          })
+        }
+      })
+      .catch(e => console.log(e))
+    
   },
   resendConfirmationCode() {
-    cognitoUser.resendConfirmationCode(function(err, result) {
-      if (err) {
-        alert(err.message || JSON.stringify(err));
-        return;
-      }
-      console.log('call result: ' + result);
-    });
+    getStorageItem('registeredEmail')
+      .then(value => {
+        userData['Username'] = value;
+
+        if(userData['Username']) {
+          const cognitoUser = new CognitoUser(userData);
+          cognitoUser.resendConfirmationCode(function(err, result) {
+            if (err) {
+              alert(err.message || JSON.stringify(err));
+              return;
+            }
+            console.log('call result: ' + result);
+          });
+        }
+      })
+      .catch(e => console.log(e))
   }
 }
 

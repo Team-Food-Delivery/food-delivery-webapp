@@ -64,8 +64,14 @@ const styles = StyleSheet.create({
     color: '#000',
     textAlign: 'center',
   },
+  errorValidationText: {
+    paddingTop: 10,
+    display: "flex",
+    flexDirection:'row',
+    justifyContent: "center",
+  },
   resendView: {
-    marginTop: 20,
+    marginTop: 10,
     display: "flex",
     flexDirection:'row',
     justifyContent: "center",
@@ -83,7 +89,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#3557b7',
     minWidth: 200,
     maxWidth: 300,
-    
   },
   nextButtonText: {
     textAlign: 'center',
