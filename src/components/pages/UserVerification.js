@@ -1,5 +1,6 @@
 import { Animated, Image, SafeAreaView, Text, View, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
+import AuthService from '../../services/Auth';
 
 import {
   CodeField,
@@ -113,11 +114,11 @@ const UserVerification = () => {
         <Text>
           Didn't receive a code?
           <TouchableOpacity style={styles.resendButtonText}> 
-            <Text> Resend</Text>
+            <Text style={styles.resendButtonColor}> Resend</Text>
           </TouchableOpacity>
         </Text>
       </View>
-      <View style={styles.nextButton}>
+      <View style={styles.nextButtonContainer}>
         <TouchableOpacity>
           <Text style={styles.nextButtonText}>Verify</Text>
         </TouchableOpacity>

@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
-export const CELL_SIZE = 55;
+export const CELL_SIZE = Dimensions.get('screen').width / 9;
 export const CELL_BORDER_RADIUS = 8;
 export const DEFAULT_CELL_BG_COLOR = '#fff';
 export const NOT_EMPTY_CELL_BG_COLOR = '#3557b7';
@@ -64,29 +64,31 @@ const styles = StyleSheet.create({
     color: '#000',
     textAlign: 'center',
   },
-  nextButton: {
-    marginTop: 30,
-    borderRadius: 60,
-    height: 60,
-    backgroundColor: '#3557b7',
-    justifyContent: 'center',
-    minWidth: 200,
-    maxWidth: 300,
-    marginBottom: 100,
-    margin: "auto"
-  },
   resendView: {
     marginTop: 20,
     display: "flex",
     flexDirection:'row',
-    justifyContent: "center"
+    justifyContent: "center",
   },
   resendButtonText: {
-    color: "blue"
+    marginTop: -3
+  },
+  resendButtonColor: {
+    color: "blue",
+  },
+  nextButtonContainer: {
+    marginTop: 30,
+    borderRadius: 60,
+    height: 60,
+    backgroundColor: '#3557b7',
+    minWidth: 200,
+    maxWidth: 300,
+    
   },
   nextButtonText: {
     textAlign: 'center',
     fontSize: 20,
+    padding: 15,
     color: '#fff',
     fontWeight: '700',
   },

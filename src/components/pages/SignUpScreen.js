@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { StyleSheet, SafeAreaView, View, Dimensions } from "react-native";
+import { useState, useRef } from 'react';
+import { StyleSheet, SafeAreaView, View, Dimensions, TextInput } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import useForm from '../utiities/useForm';
-import FormInput from '../elements/FormInput';
 import FormSubmitButton from '../elements/FormSubmit';
 import validateRegister from '../utiities/formValidation';
 import ValidationError from '../elements/ValidationError';
 import UserPool from '../../UserPool';
+import { setStorageItem } from '../../services/localStorage';
 
 const SignUpScreen = () => {
   const { handleChange, handleSubmit, values, errors} = useForm({
@@ -16,6 +16,8 @@ const SignUpScreen = () => {
   }, submitForm, validateRegister)
   const [submitError, setSubmitError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const password = useRef(null);
+  const confirmPassword = useRef(null)
 
   const navigation = useNavigation();
 
@@ -27,6 +29,7 @@ const SignUpScreen = () => {
       } else {
         setSubmitError(false);
         setErrorMessage("");
+        setStorageItem('registeredEmail', values.email);
         navigation.navigate('Verification');
       }
     })
@@ -40,31 +43,47 @@ const SignUpScreen = () => {
       maxWidth: Dimensions.get('window').width,
       alignItems: 'center', 
       justifyContent: 'center'
+    },
+    inputField: {
+      marginBottom: 20,
+      padding: 15,
+      fontSize: 16
     }
   })
 
   return (
     <SafeAreaView style={styles.signUpContainer}>
       <View>
-        <FormInput 
+        <TextInput 
+          style={styles.inputField}
           autoCapitalize='none'
           autofocus={true}
+          blurOnSubmit={false}
+          returnKeyType={'next'}
           onFocus={() => setErrorMessage("")}
           placeholder="Enter Email"
+          onSubmitEditing={() => password.current.focus()}
           value={values.email}
           onChangeText={val => handleChange(val, 'email')}
         />
         {errors.email && <ValidationError message={errors.email}/>}
-        <FormInput 
+        <TextInput 
+          style={styles.inputField}
           placeholder="Password"
           secureTextEntry={true}
+          blurOnSubmit={false}
+          returnKeyType={'next'}
+          onSubmitEditing={() => confirmPassword.current.focus()}
           value={values.password}
+          ref={password}
           onChangeText={val => handleChange(val, 'password')}
         />
-        <FormInput 
+        <TextInput 
+          style={styles.inputField}
           placeholder="Confirm Password"
           secureTextEntry={true}
           value={values.confirmPassword}
+          ref={confirmPassword}
           onChangeText={val => handleChange(val, 'confirmPassword')}
         />
         {errors.password && <ValidationError message={errors.password}/>}
