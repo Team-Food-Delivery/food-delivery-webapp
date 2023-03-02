@@ -1,4 +1,5 @@
 import { 
+  Dimensions,
   Text, 
   StyleSheet, 
   SafeAreaView, 
@@ -7,10 +8,7 @@ import {
   Animated
 } from "react-native";
 import React, { useState, useEffect, useRef } from 'react'
-import { Dimensions } from "react-native";
 import SignUpScreen from "../pages/SignUpScreen";
-import LoginScreen from "../pages/LoginScreen";
-import HomeScreen from '../pages/HomeScreen';
 
 const LoginSignUp = () => {
   const [active, setActive] = useState(true);
@@ -38,28 +36,20 @@ const LoginSignUp = () => {
     setWidth(event.nativeEvent.layout.width);
   }
 
-  const rotationX = transformX.interpolate({
-    inputRange: [0, 1],
-    outputRange: [width / 2, -74]
-  })
-
+  const styleBarTranslation = {
+    width: width / 2 - 2 - 5*2,
+    transform: [
+    {
+      translateX: transformX.interpolate({
+        inputRange: [0, 1],
+        outputRange: [width / 3.93, -267]
+      })
+    }
+  ]}
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.buttonContainer} onLayout={onLayout}>
-        <Animated.View style={{
-          position: 'absolute',
-          height: 41 - 2 * 2,
-          top: 1,
-          bottom: 2,
-          borderRadius: 100,
-          width: width / 2 - 2 - 5*2,
-          transform: [
-            {
-              translateX: rotationX
-            }
-          ],
-          backgroundColor: '#3f6186',
-        }}>
+        <Animated.View style={[styles.bar, styleBarTranslation]}>
         </Animated.View>
         <TouchableOpacity hitSlop={{top: 10, right: -5, bottom: 10 }} style={styles.buttons} onPress={() => setActive(true)}>
           <Text style={[active ? styles.activeTextColor : styles.inactiveTextColor, styles.buttonText]}>
@@ -82,6 +72,14 @@ const LoginSignUp = () => {
 }
 
 const styles = StyleSheet.create({
+  bar: {
+    position: 'absolute',
+    height: 41 - 2 * 2,
+    top: 1,
+    bottom: 2,
+    borderRadius: 100,
+    backgroundColor: '#3f6186',
+  },
   container: {
     zIndex: 1,
     position: "absolute",
@@ -100,7 +98,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     width: Dimensions.get('window').width * 0.8,
-    position: "absolute",
+    position: "relative",
     backgroundColor: "#fff",
     borderRadius: 100,
     borderColor: "#9e9e9e",
