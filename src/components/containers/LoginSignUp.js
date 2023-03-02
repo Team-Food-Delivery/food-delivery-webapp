@@ -1,4 +1,5 @@
 import { 
+  Dimensions,
   Text, 
   StyleSheet, 
   SafeAreaView, 
@@ -7,9 +8,7 @@ import {
   Animated
 } from "react-native";
 import React, { useState, useEffect, useRef } from 'react'
-import { Dimensions } from "react-native";
 import SignUpScreen from "../pages/SignUpScreen";
-import HomeScreen from '../pages/HomeScreen';
 
 const LoginSignUp = () => {
   const [active, setActive] = useState(false);
@@ -39,7 +38,7 @@ const LoginSignUp = () => {
 
   const rotationX = transformX.interpolate({
     inputRange: [0, 1],
-    outputRange: [width / 2, -74]
+    outputRange: [width / 3.93, -267]
   })
 
   return (
@@ -95,7 +94,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     width: Dimensions.get('window').width * 0.8,
-    // position: "relative",
+    position: "relative",
     backgroundColor: "#fff",
     borderRadius: 100,
     borderColor: "#9e9e9e",
