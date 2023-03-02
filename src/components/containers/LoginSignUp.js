@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import React, { useState, useEffect, useRef } from 'react'
 import SignUpScreen from "../pages/SignUpScreen";
+import LoginScreen from "../pages/LoginScreen";
 
 const LoginSignUp = () => {
   const [active, setActive] = useState(true);
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     width: Dimensions.get('window').width * 0.8,
-    position: "relative",
+    position: "absolute",
     backgroundColor: "#fff",
     borderRadius: 100,
     borderColor: "#9e9e9e",
