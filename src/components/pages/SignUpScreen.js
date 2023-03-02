@@ -82,6 +82,7 @@ const SignUpScreen = () => {
           style={styles.inputField}
           placeholder="Confirm Password"
           secureTextEntry={true}
+          returnKeyType={'done'}
           value={values.confirmPassword}
           ref={confirmPassword}
           onChangeText={val => handleChange(val, 'confirmPassword')}

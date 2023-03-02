@@ -9,10 +9,11 @@ import {
 import React, { useState, useEffect, useRef } from 'react'
 import { Dimensions } from "react-native";
 import SignUpScreen from "../pages/SignUpScreen";
+import LoginScreen from "../pages/LoginScreen";
 import HomeScreen from '../pages/HomeScreen';
 
 const LoginSignUp = () => {
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(true);
   const [width, setWidth] = useState(0);
 
   let transformX = useRef(new Animated.Value(0)).current
@@ -60,18 +61,22 @@ const LoginSignUp = () => {
           backgroundColor: '#3f6186',
         }}>
         </Animated.View>
-        <TouchableOpacity style={styles.buttons} onPress={() => setActive(true)}>
+        <TouchableOpacity hitSlop={{top: 10, right: -5, bottom: 10 }} style={styles.buttons} onPress={() => setActive(true)}>
           <Text style={[active ? styles.activeTextColor : styles.inactiveTextColor, styles.buttonText]}>
             Login
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttons} onPress={() => setActive(false)}>
+        <TouchableOpacity hitSlop={{top: 10, left: -5, bottom: 10 }} style={styles.buttons} onPress={() => setActive(false)}>
           <Text style={[active ? styles.inactiveTextColor : styles.activeTextColor, styles.buttonText]}>
             Sign Up
           </Text>
         </TouchableOpacity>
       </View>
-      <SignUpScreen />
+      {active ? (
+        <LoginScreen />
+      ): (
+        <SignUpScreen />
+      )}
     </SafeAreaView>
   )
 }
@@ -95,13 +100,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     width: Dimensions.get('window').width * 0.8,
-    // position: "relative",
+    position: "absolute",
     backgroundColor: "#fff",
     borderRadius: 100,
     borderColor: "#9e9e9e",
     borderWidth: 0.1,
     padding: 10,
-    top: -10
+    top: 15
   },
   buttons: {
     flex: 1,

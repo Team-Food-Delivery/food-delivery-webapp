@@ -6,6 +6,7 @@ const FormSubmitButton = ({ title, onPress }) => {
       color: "#fff",
       textAlign: "center",
       fontSize: 16,
+      fontWeight: '700'
     },
     signUpButton: {
       backgroundColor: "#3f6186",
