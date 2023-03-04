@@ -9,8 +9,9 @@ import {
   Keyboard, 
   TouchableWithoutFeedback
 } from 'react-native';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import FormSubmitButton from '../elements/FormSubmit';
+import ValidationError from '../elements/ValidationError';
 
 const DismissKeyboard = ({children}) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -22,6 +23,11 @@ const LoginScreen = () => {
   const password = useRef();
   const [values, setValues] = useState({ email: '', password: '' })
   const errors = {};
+
+  useEffect(() => {
+    emailValidation();
+    passwordValidation();
+  },[errors])
 
   const emailValidation = () => {
     let emailRegex = /\S+@\S+\.\S+/
@@ -45,9 +51,8 @@ const LoginScreen = () => {
 
   const handleChange = (value, fieldName) => {
     setValues({ ...values, [fieldName]: value });
-    emailValidation();
-    passwordValidation();
-
+    
+    console.log(errors)
   }
 
   const handleLoginSubmit = () => {
@@ -60,7 +65,7 @@ const LoginScreen = () => {
   
   return (
     <SafeAreaView styles={styles.loginContainer}>
-      <DismissKeyboard>
+      {/* <DismissKeyboard> */}
         <View>
           <TextInput
             value={values.email}
@@ -72,7 +77,8 @@ const LoginScreen = () => {
             placeholder={"Email"}
             onSubmitEditing={() => password.current.focus()}
             onChangeText={val => handleChange(val, 'email')}
-          />
+          /> 
+          {errors.email && <ValidationError message={errors.email}/>}
           <TextInput
             value={values.password}
             style={styles.inputField}
@@ -86,8 +92,9 @@ const LoginScreen = () => {
             onSubmitEditing={() => password.current.blur()}
             onChangeText={val => handleChange(val, 'password')}
           />
+          {errors && <ValidationError message={errors.password}/>}
         </View>
-      </DismissKeyboard>
+      {/* </DismissKeyboard> */}
       <View style={styles.submitButton}>
         <FormSubmitButton title={'Login'} onPress={handleLoginSubmit} />
       </View>
@@ -99,17 +106,6 @@ const styles = StyleSheet.create({
   loginContainer: {
     width: Dimensions.get('window').width,
   },
-  container: {
-    flexDirection: "row",
-    justifyContent: "center",
-    width: Dimensions.get('window').width * 0.8,
-    position: "relative",
-    backgroundColor: "#fff",
-    borderRadius: 100,
-    borderColor: "#9e9e9e",
-    borderWidth: 0.1,
-    padding: 10,
-  },
   inputField: {
     marginBottom: 20,
     padding: 15,
@@ -118,6 +114,7 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     maxWidth: Dimensions.get('window').width,
+    marginTop: 10,
     alignItems: 'center', 
     justifyContent: 'center'
   },

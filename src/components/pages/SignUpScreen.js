@@ -37,7 +37,9 @@ const SignUpScreen = () => {
 
   const styles = StyleSheet.create({
     signUpContainer: {
-      width: Dimensions.get('window').width
+      marginTop: 40,
+      width: Dimensions.get('window').width,
+      alignItems: "center"
     },
     submitButton: {
       maxWidth: Dimensions.get('window').width,
@@ -45,6 +47,7 @@ const SignUpScreen = () => {
       justifyContent: 'center'
     },
     inputField: {
+      width: Dimensions.get('window').width * 0.8,
       marginBottom: 20,
       padding: 15,
       fontSize: 16

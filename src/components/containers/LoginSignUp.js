@@ -43,7 +43,7 @@ const LoginSignUp = () => {
     {
       translateX: transformX.interpolate({
         inputRange: [0, 1],
-        outputRange: [width / 3.93, -267]
+        outputRange: [width / 3.93, -75]
       })
     }
   ]}
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     marginLeft: 0,
     marginRight: 0,
     maxWidth: Dimensions.get('window').width,
-    height: "60%",
+    height: "55%",
     borderRadius: 50
   },
   buttonContainer: {
