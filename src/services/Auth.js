@@ -16,41 +16,67 @@ const userData = {
 
 const AuthService = {
   codeRegistration(code) {
-    getStorageItem('registeredEmail')
-      .then(value => {
-        userData['Username'] = value;
-        if(userData['Username']) {
-          const cognitoUser = new CognitoUser(userData);
-          cognitoUser.confirmRegistration(code, true, function(err, result) {
-            if (err) {
-              alert(err.message || JSON.stringify(err));
-              return;
+    return new Promise((resolve, reject) => {
+      getStorageItem('registeredEmail')
+        .then(value => {
+          userData.Username = value;
+            if(userData.Username) {
+              const cognitoUser = new CognitoUser(userData);
+              cognitoUser.confirmRegistration(code, true, function(err, result) {
+                if (err) {
+                  //alert(err.message || JSON.stringify(err));
+                  reject(err.message)
+                } else {
+                  resolve(result);
+                }
+                //Need to create a promise so it navigates to login page after success
+                // if(typeof result === 'string') {
+                //   return result.toLowerCase();
+                // }
+              })
             }
-            //Need to create a promise so it navigates to login page after success
-            console.log('call result: ' + result);
-          })
-        }
-      })
-      .catch(e => console.log(e))
-    
+        })
+        // .catch(e => console.log(e))
+    })
   },
   resendConfirmationCode() {
     getStorageItem('registeredEmail')
       .then(value => {
-        userData['Username'] = value;
+        userData.Username = value;
 
-        if(userData['Username']) {
+        if(userData.Username) {
           const cognitoUser = new CognitoUser(userData);
           cognitoUser.resendConfirmationCode(function(err, result) {
             if (err) {
               alert(err.message || JSON.stringify(err));
               return;
             }
-            console.log('call result: ' + result);
+            if(result) {
+              alert('Another code has been sent to your email. Please enter the code once you have received it.')
+            }
           });
         }
       })
       .catch(e => console.log(e))
+  },
+  login(email, password) {
+    const authenticationData = {
+      Username: email,
+      Password: password
+    };
+
+    const user = new CognitoUser({ Username: email, Pool: userPool });
+    const authenticationDetails = new AuthenticationDetails(authenticationData);
+
+    return new Promise((resolve, reject) => {
+      user.authenticateUser(authenticationDetails, {
+        onSuccess: result => {
+          setStorageItem('registeredEmail', email);
+          resolve(result.getIdToken().getJwtToken());
+        },
+        onFailure: err => reject(err)
+      })
+    })
   }
 }
 

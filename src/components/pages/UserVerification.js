@@ -101,7 +101,7 @@ const UserVerification = () => {
       setHasError(true);
     } else {
       setHasError(false);
-      AuthService.codeRegistration(value)
+      AuthService.codeRegistration(value).then(res => console.log('from userVerification',res))
     }
   }
 
