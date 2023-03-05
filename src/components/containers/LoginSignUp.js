@@ -43,15 +43,14 @@ const LoginSignUp = () => {
     {
       translateX: transformX.interpolate({
         inputRange: [0, 1],
-        outputRange: [width / 3.93, -75]
+        outputRange: [width / 3.78, -1*(width / 3.78)]
       })
     }
   ]}
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.buttonContainer} onLayout={onLayout}>
-        <Animated.View style={[styles.bar, styleBarTranslation]}>
-        </Animated.View>
+        <Animated.View style={[styles.bar, styleBarTranslation]} />
         <TouchableOpacity hitSlop={{top: 10, right: -5, bottom: 10 }} style={styles.buttons} onPress={() => setActive(true)}>
           <Text style={[active ? styles.activeTextColor : styles.inactiveTextColor, styles.buttonText]}>
             Login
