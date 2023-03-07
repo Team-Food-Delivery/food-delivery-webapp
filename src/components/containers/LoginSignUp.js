@@ -11,14 +11,14 @@ import React, { useState, useEffect, useRef } from 'react'
 import SignUpScreen from "../pages/SignUpScreen";
 import LoginScreen from "../pages/LoginScreen";
 
-const LoginSignUp = () => {
-  const [active, setActive] = useState(true);
+const LoginSignUp = ({ isSuccess }) => {
+  const [active, setActive] = useState(false);
   const [width, setWidth] = useState(0);
 
   let transformX = useRef(new Animated.Value(0)).current
 
   useEffect(() => {
-    if (active) {
+    if (active || isSuccess) {
       Animated.timing(transformX, {
         toValue: 1,
         duration: 300,
@@ -31,7 +31,7 @@ const LoginSignUp = () => {
         useNativeDriver: true
       }).start()
     }
-  }, [active]);
+  }, [active, isSuccess]);
 
   const onLayout = (event) => {
     setWidth(event.nativeEvent.layout.width);
@@ -52,17 +52,17 @@ const LoginSignUp = () => {
       <View style={styles.buttonContainer} onLayout={onLayout}>
         <Animated.View style={[styles.bar, styleBarTranslation]} />
         <TouchableOpacity hitSlop={{top: 10, right: -5, bottom: 10 }} style={styles.buttons} onPress={() => setActive(true)}>
-          <Text style={[active ? styles.activeTextColor : styles.inactiveTextColor, styles.buttonText]}>
+          <Text style={[(active || isSuccess) === true ? styles.activeTextColor : styles.inactiveTextColor, styles.buttonText]}>
             Login
           </Text>
         </TouchableOpacity>
         <TouchableOpacity hitSlop={{top: 10, left: -5, bottom: 10 }} style={styles.buttons} onPress={() => setActive(false)}>
-          <Text style={[active ? styles.inactiveTextColor : styles.activeTextColor, styles.buttonText]}>
+          <Text style={[(active || isSuccess) === true ? styles.inactiveTextColor : styles.activeTextColor, styles.buttonText]}>
             Sign Up
           </Text>
         </TouchableOpacity>
       </View>
-      {active ? (
+      {(active || isSuccess) === true ? (
         <LoginScreen />
       ): (
         <SignUpScreen />

@@ -14,51 +14,49 @@ const userData = {
   Pool: userPool
 }
 
-const AuthService = {
-  codeRegistration(code) {
-    return new Promise((resolve, reject) => {
-      getStorageItem('registeredEmail')
-        .then(value => {
-          userData.Username = value;
-            if(userData.Username) {
-              const cognitoUser = new CognitoUser(userData);
-              cognitoUser.confirmRegistration(code, true, function(err, result) {
-                if (err) {
-                  //alert(err.message || JSON.stringify(err));
-                  reject(err.message)
-                } else {
-                  resolve(result);
-                }
-                //Need to create a promise so it navigates to login page after success
-                // if(typeof result === 'string') {
-                //   return result.toLowerCase();
-                // }
-              })
-            }
-        })
-        // .catch(e => console.log(e))
-    })
-  },
-  resendConfirmationCode() {
-    getStorageItem('registeredEmail')
-      .then(value => {
-        userData.Username = value;
-
-        if(userData.Username) {
-          const cognitoUser = new CognitoUser(userData);
-          cognitoUser.resendConfirmationCode(function(err, result) {
-            if (err) {
-              alert(err.message || JSON.stringify(err));
-              return;
-            }
-            if(result) {
-              alert('Another code has been sent to your email. Please enter the code once you have received it.')
-            }
-          });
+export function codeRegistration(email, code) {
+  console.log(email,code)
+  const response = new Promise((resolve, reject) => {
+    
+    userData.Username = email;
+    if(userData.Username) {
+      const cognitoUser = new CognitoUser(userData);
+      cognitoUser.confirmRegistration(code, true, function(err, result) {
+        if (err) {
+          reject()
+        } 
+        if(result == "SUCCESS") {
+          resolve()
         }
       })
-      .catch(e => console.log(e))
-  },
+    }
+  })
+  
+  return response
+}
+
+export function resendConfirmationCode() {
+  getStorageItem('registeredEmail')
+    .then(value => {
+      userData.Username = value;
+
+      if(userData.Username) {
+        const cognitoUser = new CognitoUser(userData);
+        cognitoUser.resendConfirmationCode(function(err, result) {
+          if (err) {
+            alert(err.message || JSON.stringify(err));
+            return;
+          }
+          if(result) {
+            alert('Another code has been sent to your email. Please enter the code once you have received it.')
+          }
+        });
+      }
+    })
+    .catch(e => console.log(e))
+}
+
+const AuthService = {
   login(email, password) {
     const authenticationData = {
       Username: email,
