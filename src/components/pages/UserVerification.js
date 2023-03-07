@@ -49,7 +49,7 @@ const UserVerification = () => {
   const [value, setValue] = useState('');
   const [hasError, setHasError] = useState(false);
   const [response, setResponse] = useState({ error: false, message: '' });
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
@@ -112,11 +112,13 @@ const UserVerification = () => {
         .then(email => {
           codeRegistration(email, value)
             .then(() => {
+              setIsLoading(true);
               setHasError(false);
               setResponse({error: false });
               delayNavigateToLogin(true);
             })
             .catch(() => {
+              setIsLoading(false);
               setHasError(false);
               setResponse({ error: true, message: 'Invalid code, please check again.'});
             })
