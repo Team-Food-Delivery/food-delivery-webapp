@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react';
 import { StyleSheet, SafeAreaView, View, Dimensions, TextInput } from "react-native";
-import { useNavigation } from '@react-navigation/native';
 import useForm from '../utiities/useForm';
 import FormSubmitButton from '../elements/FormSubmit';
 import validateRegister from '../utiities/formValidation';
@@ -19,7 +18,6 @@ const SignUpScreen = () => {
   const password = useRef(null);
   const confirmPassword = useRef(null)
 
-  const navigation = useNavigation();
 
   function submitForm() {
     UserPool.signUp(values.email, values.password, [], null, (err, data) => {

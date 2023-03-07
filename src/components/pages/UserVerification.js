@@ -1,7 +1,9 @@
-import { Animated, Image, SafeAreaView, Text, View, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, Animated, Image, SafeAreaView, Text, View, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
+import { getStorageItem } from '../../services/localStorage';
 import ValidationError from '../elements/ValidationError';
-import AuthService from '../../services/Auth';
+import { codeRegistration, resendConfirmationCode } from '../../services/Auth';
+import { useNavigation } from '@react-navigation/native';
 
 import {
   CodeField,
@@ -45,12 +47,16 @@ const animateCell = ({hasValue, index, isFocused}) => {
 
 const UserVerification = () => {
   const [value, setValue] = useState('');
-  const [hasError, setHasError] = useState(false)
+  const [hasError, setHasError] = useState(false);
+  const [response, setResponse] = useState({ error: false, message: '' });
+  const [isLoading, setIsLoading] = useState(true);
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   });
+
+  const navigation = useNavigation();
 
   const renderCell = ({index, symbol, isFocused}) => {
     const hasValue = Boolean(symbol);
@@ -92,16 +98,32 @@ const UserVerification = () => {
     );
   };
 
-  const resendVerification = () => {
-    AuthService.resendConfirmationCode()
+  const delayNavigateToLogin = (isSuccess) => {
+    setTimeout(() => {
+      navigation.navigate('Home', { isSuccess })
+    }, 1000)
   }
 
   const submitVerification = () => {
     if(value.length <= 5) {
       setHasError(true);
     } else {
-      setHasError(false);
-      AuthService.codeRegistration(value).then(res => console.log('from userVerification',res))
+      getStorageItem('registeredEmail')
+        .then(email => {
+          codeRegistration(email, value)
+            .then(() => {
+              setHasError(false);
+              setResponse({error: false });
+              delayNavigateToLogin(true);
+            })
+            .catch(() => {
+              setHasError(false);
+              setResponse({ error: true, message: 'Invalid code, please check again.'});
+            })
+        }).catch(() => {
+          setHasError(false);
+          setResponse({ error: true, message: 'No email on file.' })
+        })
     }
   }
 
@@ -128,17 +150,24 @@ const UserVerification = () => {
       <View style={styles.errorValidationText}>
         {hasError && <ValidationError message={'Please make sure your code is 6 digits'}/>}
       </View>
+      <View style={styles.errorValidationText}>
+        {response.error && <ValidationError message={response.message}/>}
+      </View>
       <View style={styles.resendView}>
         <Text>
           Didn't receive a code?
-          <TouchableOpacity style={styles.resendButtonText} onPress={resendVerification}> 
+          <TouchableOpacity style={styles.resendButtonText} onPress={resendConfirmationCode}> 
             <Text style={styles.resendButtonColor}> Resend</Text>
           </TouchableOpacity>
         </Text>
       </View>
       <View style={styles.nextButtonContainer}>
-        <TouchableOpacity onPress={submitVerification}>
-          <Text style={styles.nextButtonText}>Verify</Text>
+        <TouchableOpacity style={styles.nextButton} onPress={submitVerification} disabled={isLoading ? true : false}>
+          {isLoading ? (
+            <ActivityIndicator size="large" style={styles.loadingIndicator}/>
+          ) : (
+            <Text style={styles.nextButtonText}>Verify</Text>
+          )}
         </TouchableOpacity>
       </View>
     </SafeAreaView>

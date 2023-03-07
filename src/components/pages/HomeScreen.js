@@ -1,6 +1,6 @@
 import React from "react";
 import ImageBG from '../../img/HomeBackGround.jpg'
-import LoginSignUp from "../containers/LoginSignUp";
+import LoginSignUp from "../containers/LoginSignUp";;
 import { Text, StyleSheet, View, Box, ImageBackground } from "react-native";
 
 const styles = StyleSheet.create({
@@ -18,7 +18,9 @@ const styles = StyleSheet.create({
   } 
 });
 
-const HomeScreen = () => {
+const HomeScreen = ({ route }) => {
+  const { isSuccess } = route.params;
+
   return (
   <View style={styles.backgroundimage}>
     <ImageBackground 
@@ -27,7 +29,7 @@ const HomeScreen = () => {
         FOOD DELIVERY
       </Text>
     </ImageBackground>
-    <LoginSignUp/>
+    <LoginSignUp isSuccess={isSuccess} />
   </View>
   );
 };

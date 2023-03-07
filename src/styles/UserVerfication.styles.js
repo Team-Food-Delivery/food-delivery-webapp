@@ -83,12 +83,19 @@ const styles = StyleSheet.create({
     color: "blue",
   },
   nextButtonContainer: {
+    justifyContent: 'center',
+    alignItems: "center",
+  },
+  nextButton: {
     marginTop: 30,
     borderRadius: 60,
     height: 60,
     backgroundColor: '#3557b7',
-    minWidth: 200,
-    maxWidth: 300,
+    minWidth: Dimensions.get('screen').width * 0.6,
+    maxWidth: Dimensions.get('screen').width * 0.8,
+  },
+  loadingIndicator: {
+    top: 10
   },
   nextButtonText: {
     textAlign: 'center',
@@ -97,6 +104,13 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: '700',
   },
+  loadingText: {
+    textAlign: 'center',
+    fontSize: 20,
+    padding: 15,
+    color: '#fff',
+    fontWeight: '700',
+  }
 });
 
 export default styles;
