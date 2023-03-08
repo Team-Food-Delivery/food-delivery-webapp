@@ -11,7 +11,7 @@ function App() {
   return (
     <NavigationContainer>
       <AuthProvider>
-        <Stack.Navigator initialRouteName="Verification">
+        <Stack.Navigator initialRouteName="Home">
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="LoginSignUp" component={LoginSignUp} />
           <Stack.Screen name="Verification" component={Verification} />
