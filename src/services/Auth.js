@@ -1,6 +1,6 @@
 import { USER_POOL_ID, CLIENT_ID } from '@env';
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js';
-import { setStorageItem, getStorageItem } from './localStorage';
+import { setStorageItem, getStorageObject } from './localStorage';
 
 const poolData = {
   UserPoolId: USER_POOL_ID,
@@ -15,7 +15,6 @@ const userData = {
 }
 
 export function codeRegistration(email, code) {
-  console.log(email,code)
   const response = new Promise((resolve, reject) => {
     
     userData.Username = email;
@@ -36,9 +35,9 @@ export function codeRegistration(email, code) {
 }
 
 export function resendConfirmationCode() {
-  getStorageItem('registeredEmail')
-    .then(value => {
-      userData.Username = value;
+  getStorageObject('userAuth')
+    .then(userAuth => {
+      userData.Username = userAuth.email;
 
       if(userData.Username) {
         const cognitoUser = new CognitoUser(userData);
@@ -69,13 +68,15 @@ const AuthService = {
     return new Promise((resolve, reject) => {
       user.authenticateUser(authenticationDetails, {
         onSuccess: result => {
-          setStorageItem('registeredEmail', email);
+          setStorageItem('userAuth', email);
           resolve(result.getIdToken().getJwtToken());
         },
         onFailure: err => {
           if(err.message == 'User is not confirmed.') {
             //Need to navigate to verifcation page if account is unconfirmed
             reject('User is not confirmed.')
+          } else {
+            reject('Invalid email or password.')
           }
         }
       })
