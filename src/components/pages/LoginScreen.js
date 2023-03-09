@@ -1,7 +1,5 @@
 import { 
   View, 
-  Text, 
-  TouchableOpacity, 
   TextInput,
   StyleSheet, 
   SafeAreaView,
@@ -12,6 +10,7 @@ import {
 import { useRef, useState, useEffect } from 'react';
 import FormSubmitButton from '../elements/FormSubmit';
 import ValidationError from '../elements/ValidationError';
+import AuthService from '../../services/Auth';
 
 const DismissKeyboard = ({children}) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -56,6 +55,7 @@ const LoginScreen = () => {
   }
 
   const handleLoginSubmit = () => {
+    AuthService.login('offspring7890@yahoo.com', 'Brightwoodd1!')
     if(Object.keys(errors).length === 0) {
       //send login data
     } else {
