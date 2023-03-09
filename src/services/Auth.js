@@ -1,5 +1,5 @@
 import { USER_POOL_ID, CLIENT_ID } from '@env';
-import { CognitoUser, CognitoUserPool } from 'amazon-cognito-identity-js';
+import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import { setStorageItem, getStorageItem } from './localStorage';
 
 const poolData = {
@@ -72,7 +72,12 @@ const AuthService = {
           setStorageItem('registeredEmail', email);
           resolve(result.getIdToken().getJwtToken());
         },
-        onFailure: err => reject(err)
+        onFailure: err => {
+          if(err.message == 'User is not confirmed.') {
+            //Need to navigate to verifcation page if account is unconfirmed
+            reject('User is not confirmed.')
+          }
+        }
       })
     })
   }

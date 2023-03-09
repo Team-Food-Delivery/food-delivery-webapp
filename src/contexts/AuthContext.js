@@ -6,7 +6,7 @@ export function AuthProvider({ children }) {
   const [verified, setVerified] = useState(false);
 
   const isVerified = () => {
-    setVerified(true)
+    setVerified(true);
   }
 
   const values = {

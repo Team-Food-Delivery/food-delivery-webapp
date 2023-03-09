@@ -1,8 +1,9 @@
 import { ActivityIndicator, Animated, Image, SafeAreaView, Text, View, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { getStorageItem } from '../../services/localStorage';
 import ValidationError from '../elements/ValidationError';
 import { codeRegistration, resendConfirmationCode } from '../../services/Auth';
+import { AuthContext } from '../../contexts/AuthContext';
 import { useNavigation } from '@react-navigation/native';
 
 import {
@@ -57,6 +58,7 @@ const UserVerification = () => {
   });
 
   const navigation = useNavigation();
+  const { isVerified } = useContext(AuthContext);
 
   const renderCell = ({index, symbol, isFocused}) => {
     const hasValue = Boolean(symbol);
@@ -98,9 +100,10 @@ const UserVerification = () => {
     );
   };
 
-  const delayNavigateToLogin = (isSuccess) => {
+  const delayNavigateToLogin = () => {
+    isVerified();
     setTimeout(() => {
-      navigation.navigate('Home', { isSuccess })
+      navigation.navigate('Home');
     }, 1000)
   }
 
