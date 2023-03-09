@@ -55,7 +55,6 @@ const LoginScreen = () => {
   }
 
   const handleLoginSubmit = () => {
-    AuthService.login('offspring7890@yahoo.com', 'Brightwoodd1!')
     if(Object.keys(errors).length === 0) {
       //send login data
     } else {
