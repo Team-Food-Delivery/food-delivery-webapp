@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import ImageBG from '../../img/HomeBackGround.jpg'
 import LoginSignUp from "../containers/LoginSignUp";;
-import { Text, StyleSheet, View, Box, ImageBackground } from "react-native";
+import { AuthContext } from "../../contexts/AuthContext";
+import { Text, StyleSheet, View, ImageBackground } from "react-native";
 
 const styles = StyleSheet.create({
   backgroundimage:{
@@ -18,8 +19,8 @@ const styles = StyleSheet.create({
   } 
 });
 
-const HomeScreen = ({ route }) => {
-  const { isSuccess } = route.params;
+const HomeScreen = ({ navigation }) => {
+  const { verified } = useContext(AuthContext);
 
   return (
   <View style={styles.backgroundimage}>
@@ -29,7 +30,7 @@ const HomeScreen = ({ route }) => {
         FOOD DELIVERY
       </Text>
     </ImageBackground>
-    <LoginSignUp isSuccess={isSuccess} />
+    <LoginSignUp verified={verified} navigation={navigation}/>
   </View>
   );
 };

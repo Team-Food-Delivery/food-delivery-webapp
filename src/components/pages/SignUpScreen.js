@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { StyleSheet, SafeAreaView, View, Dimensions, TextInput } from "react-native";
+import { StyleSheet, SafeAreaView, View, Dimensions, TextInput, Button } from "react-native";
 import useForm from '../utiities/useForm';
 import FormSubmitButton from '../elements/FormSubmit';
 import validateRegister from '../utiities/formValidation';
@@ -7,7 +7,7 @@ import ValidationError from '../elements/ValidationError';
 import UserPool from '../../UserPool';
 import { setStorageItem } from '../../services/localStorage';
 
-const SignUpScreen = () => {
+const SignUpScreen = ({ navigation }) => {
   const { handleChange, handleSubmit, values, errors} = useForm({
     email: '',
     password: '',
@@ -18,8 +18,9 @@ const SignUpScreen = () => {
   const password = useRef(null);
   const confirmPassword = useRef(null)
 
-
   function submitForm() {
+    console.log('submit');
+    return;
     UserPool.signUp(values.email, values.password, [], null, (err, data) => {
       if(err.name === 'UsernameExistsException') {
         setSubmitError(true);

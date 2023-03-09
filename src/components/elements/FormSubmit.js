@@ -17,8 +17,8 @@ const FormSubmitButton = ({ title, onPress }) => {
     }
   })
   return (
-    <TouchableOpacity style={styles.signUpButton}>
-      <Text style={styles.button} onPress={onPress}>
+    <TouchableOpacity onPress={onPress} style={styles.signUpButton}>
+      <Text style={styles.button}>
         {title}
       </Text>
     </TouchableOpacity>
