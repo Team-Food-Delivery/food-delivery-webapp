@@ -1,9 +1,9 @@
 import { 
+  useWindowDimensions,
   View, 
   TextInput,
   StyleSheet, 
   SafeAreaView,
-  Dimensions,
   Keyboard, 
   TouchableWithoutFeedback
 } from 'react-native';
@@ -23,9 +23,27 @@ const LoginScreen = () => {
   let errors = {}
   const password = useRef();
   const [values, setValues] = useState({ email: '', password: '' });
-  const [formErrors, setFormErrors] = useState(null)
-  const [response, setResponse] = useState("")
+  const [formErrors, setFormErrors] = useState(null);
+  const [response, setResponse] = useState("");
+  const { width } = useWindowDimensions();
 
+  const styles = StyleSheet.create({
+    loginContainer: {
+      width: width,
+    },
+    inputField: {
+      marginBottom: 20,
+      padding: 15,
+      fontSize: 16,
+      width: "80%"
+    },
+    submitButton: {
+      maxWidth: width,
+      marginTop: 10,
+      alignItems: 'center', 
+      justifyContent: 'center'
+    },
+  })
 
   const loginValidation = () => {
     let emailRegex = /\S+@\S+\.\S+/
@@ -106,23 +124,5 @@ const LoginScreen = () => {
     </SafeAreaView>
   )
 }
-
-const styles = StyleSheet.create({
-  loginContainer: {
-    width: Dimensions.get('window').width,
-  },
-  inputField: {
-    marginBottom: 20,
-    padding: 15,
-    fontSize: 16,
-    width: Dimensions.get('window').width * 0.8
-  },
-  submitButton: {
-    maxWidth: Dimensions.get('window').width,
-    marginTop: 10,
-    alignItems: 'center', 
-    justifyContent: 'center'
-  },
-})
 
 export default LoginScreen;

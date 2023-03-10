@@ -1,5 +1,5 @@
 import { 
-  Dimensions,
+  useWindowDimensions,
   Text, 
   StyleSheet, 
   SafeAreaView, 
@@ -15,7 +15,8 @@ const LoginSignUp = ({ verified, navigation }) => {
   const [active, setActive] = useState(false);
   const [width, setWidth] = useState(0);
 
-  let transformX = useRef(new Animated.Value(0)).current
+  let transformX = useRef(new Animated.Value(0)).current;
+  const { width: windowWidth } = useWindowDimensions();
 
   useEffect(() => {
     if (active || verified) {
@@ -47,6 +48,60 @@ const LoginSignUp = ({ verified, navigation }) => {
       })
     }
   ]}
+
+  const styles = StyleSheet.create({
+    bar: {
+      position: 'absolute',
+      height: 41 - 2 * 2,
+      top: 1,
+      bottom: 2,
+      borderRadius: 100,
+      backgroundColor: '#3f6186',
+    },
+    container: {
+      zIndex: 1,
+      position: "absolute",
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: "#fff",
+      left: 0,
+      right: 0,
+      marginLeft: 0,
+      marginRight: 0,
+      maxWidth: windowWidth,
+      height: "55%",
+      borderRadius: 50
+    },
+    buttonContainer: {
+      flexDirection: "row",
+      justifyContent: "center",
+      width: "80%",
+      position: "absolute",
+      backgroundColor: "#fff",
+      borderRadius: 100,
+      borderColor: "#9e9e9e",
+      borderWidth: 0.1,
+      padding: 10,
+      top: 15
+    },
+    buttons: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    buttonText: {
+      width: "50%",
+      textAlign: "center",
+      fontWeight: "bold"
+    },
+    inactiveTextColor: {
+      color: "#3f6186",
+    },
+    activeTextColor: {
+      color: "#fff",
+    }
+  })
+  
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.buttonContainer} onLayout={onLayout}>
@@ -70,58 +125,5 @@ const LoginSignUp = ({ verified, navigation }) => {
     </SafeAreaView>
   )
 }
-
-const styles = StyleSheet.create({
-  bar: {
-    position: 'absolute',
-    height: 41 - 2 * 2,
-    top: 1,
-    bottom: 2,
-    borderRadius: 100,
-    backgroundColor: '#3f6186',
-  },
-  container: {
-    zIndex: 1,
-    position: "absolute",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#fff",
-    left: 0,
-    right: 0,
-    marginLeft: 0,
-    marginRight: 0,
-    maxWidth: Dimensions.get('window').width,
-    height: "55%",
-    borderRadius: 50
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    width: Dimensions.get('window').width * 0.8,
-    position: "absolute",
-    backgroundColor: "#fff",
-    borderRadius: 100,
-    borderColor: "#9e9e9e",
-    borderWidth: 0.1,
-    padding: 10,
-    top: 15
-  },
-  buttons: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  buttonText: {
-    width: Dimensions.get('window').width / 2,
-    textAlign: "center",
-    fontWeight: "bold"
-  },
-  inactiveTextColor: {
-    color: "#3f6186",
-  },
-  activeTextColor: {
-    color: "#fff",
-  }
-})
 
 export default LoginSignUp;

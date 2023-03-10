@@ -1,5 +1,11 @@
 import { useState, useRef } from 'react';
-import { StyleSheet, SafeAreaView, View, Dimensions, TextInput } from "react-native";
+import { 
+  StyleSheet, 
+  SafeAreaView, 
+  View, 
+  useWindowDimensions, 
+  TextInput 
+} from "react-native";
 import useForm from '../utiities/useForm';
 import FormSubmitButton from '../elements/FormSubmit';
 import validateRegister from '../utiities/formValidation';
@@ -16,7 +22,8 @@ const SignUpScreen = ({ navigation }) => {
   const [submitError, setSubmitError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const password = useRef(null);
-  const confirmPassword = useRef(null)
+  const confirmPassword = useRef(null);
+  const { width } = useWindowDimensions();
 
   function submitForm() {
     UserPool.signUp(values.email, values.password, [], null, (err, data) => {
@@ -36,16 +43,16 @@ const SignUpScreen = ({ navigation }) => {
   const styles = StyleSheet.create({
     signUpContainer: {
       marginTop: 40,
-      width: Dimensions.get('window').width,
+      width: width,
       alignItems: "center"
     },
     submitButton: {
-      maxWidth: Dimensions.get('window').width,
+      maxWidth: width,
       alignItems: 'center', 
       justifyContent: 'center'
     },
     inputField: {
-      width: Dimensions.get('window').width * 0.8,
+      width: "80%",
       marginBottom: 20,
       padding: 15,
       fontSize: 16
