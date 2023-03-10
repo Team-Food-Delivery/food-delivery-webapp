@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
 
 const Carousel = ({title, customStyle, data}) => {
     return(
-        <View >
+        <View>
             <Text style={styles.title}>{title}</Text>
                 <FlatList
                     horizontal
@@ -22,8 +22,15 @@ const Carousel = ({title, customStyle, data}) => {
                     renderItem={({ item }) => {
                         return (
                             <TouchableOpacity style={customStyle.itemContainer}>
-                                {/*Create a Resuable component to handle both Image & Image + Descriptions */}
                                 <Image resizeMode='contain' source={item.source} style={customStyle.item}/>
+                                {item.store && 
+                                    <View>
+                                        <Text>{item.store}</Text>
+                                        <Text>{item.rating}</Text>
+                                        <Text>{item.price}</Text>
+                                    </View>
+                                }
+
                             </TouchableOpacity>
                         )
                     }}
