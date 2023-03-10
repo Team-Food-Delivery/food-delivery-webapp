@@ -7,13 +7,15 @@ import {
   TouchableOpacity,
   Animated
 } from "react-native";
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
+import { AuthContext } from "../../contexts/AuthContext";
 import SignUpScreen from "../pages/SignUpScreen";
 import LoginScreen from "../pages/LoginScreen";
 
 const LoginSignUp = ({ verified, navigation }) => {
   const [active, setActive] = useState(false);
   const [width, setWidth] = useState(0);
+  const { isNotVerified } = useContext(AuthContext);
 
   let transformX = useRef(new Animated.Value(0)).current;
   const { width: windowWidth } = useWindowDimensions();
@@ -36,6 +38,15 @@ const LoginSignUp = ({ verified, navigation }) => {
 
   const onLayout = (event) => {
     setWidth(event.nativeEvent.layout.width);
+  }
+
+  const toggleScreen = () => {
+    if(verified === true) {
+      setActive(false);
+      isNotVerified();
+    } else {
+      setActive(false);
+    }
   }
 
   const styleBarTranslation = {
@@ -111,7 +122,7 @@ const LoginSignUp = ({ verified, navigation }) => {
             Login
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity hitSlop={{top: 10, left: -5, bottom: 10 }} style={styles.buttons} onPress={() => setActive(false)}>
+        <TouchableOpacity hitSlop={{top: 10, left: -5, bottom: 10 }} style={styles.buttons} onPress={() => toggleScreen()}>
           <Text style={[(active || verified) === true ? styles.inactiveTextColor : styles.activeTextColor, styles.buttonText]}>
             Sign Up
           </Text>

@@ -11,7 +11,7 @@ import { useRef, useState } from 'react';
 import FormSubmitButton from '../elements/FormSubmit';
 import ValidationError from '../elements/ValidationError';
 import AuthService from '../../services/Auth';
-import { mergeStorageItem } from '../../services/localStorage';
+import { setStorageObject } from '../../services/localStorage';
 
 const DismissKeyboard = ({children}) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -35,7 +35,7 @@ const LoginScreen = () => {
       marginBottom: 20,
       padding: 15,
       fontSize: 16,
-      width: "80%"
+      width: width * 0.8
     },
     submitButton: {
       maxWidth: width,
@@ -63,19 +63,21 @@ const LoginScreen = () => {
     setFormErrors(errors)
   }
 
-
-
   const handleChange = (value, fieldName) => {
     setValues({ ...values, [fieldName]: value });
     loginValidation();
   }
 
-  const handleLoginSubmit = () => {
+  const handleLoginSubmit =  () => {
     if(Object.keys(errors).length === 0) {
       AuthService.login(values.email, values.password)
-        .then(authToken => {
-          const userObject = { authToken };
-          mergeStorageItem('userAuth', userObject);
+        .then(async authToken => {
+          const userObject = { email: values.email, authToken };
+          try {
+            await setStorageObject('userAuth', userObject)
+          } catch(e) {
+            console.error(e)
+          }
         })
         .catch(err => {
           setResponse(err);

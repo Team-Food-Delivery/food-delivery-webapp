@@ -9,9 +9,14 @@ export function AuthProvider({ children }) {
     setVerified(true);
   }
 
+  const isNotVerified = () => {
+    setVerified(false);
+  }
+
   const values = {
     verified, 
-    isVerified
+    isVerified,
+    isNotVerified
   }
 
   return (

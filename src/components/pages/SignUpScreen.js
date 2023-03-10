@@ -31,7 +31,7 @@ const SignUpScreen = ({ navigation }) => {
         setSubmitError(true);
         setErrorMessage('An account with the given email already exists.');
       } else {
-        const userObject = { email: values.email };
+        const userObject = { email: values.email, authToken: '' };
         setSubmitError(false);
         setErrorMessage("");
         setStorageObject('userAuth', userObject);
@@ -52,7 +52,7 @@ const SignUpScreen = ({ navigation }) => {
       justifyContent: 'center'
     },
     inputField: {
-      width: "80%",
+      width: width * 0.8,
       marginBottom: 20,
       padding: 15,
       fontSize: 16

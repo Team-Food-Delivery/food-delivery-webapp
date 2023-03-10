@@ -20,6 +20,7 @@ const setStorageObject = async (key, value) => {
 const getStorageItem = async (key) => {
   try {
     const value = await AsyncStorage.getItem(key)
+    console.log(value)
     if(value !== null) {
       return value
     }
@@ -39,12 +40,13 @@ const getStorageObject = async (key) => {
 
 const mergeStorageItem = async (key, value) => {
   try {
+    console.log(value)
     await AsyncStorage.mergeItem(key, JSON.stringify(value))
 
     //Delete after successful testing
-    const currentUser = await AsyncStorage.getItem(key)
+    const currentUser = await getStorageObject(key)
 
-    console.log(currentUser)
+    console.log('currentuser:' ,currentUser)
   } catch(e) {
     throw Error(`Incorrect key or doesn't exist.`)
   }
