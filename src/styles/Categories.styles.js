@@ -1,7 +1,7 @@
 import react from "react";
 import {  StyleSheet } from "react-native";
 
-export default StyleSheet.create({
+const CategoriesStyles = StyleSheet.create({
     itemContainer: {
         borderWidth: 1,
         borderColor: 'black',
@@ -22,3 +22,4 @@ export default StyleSheet.create({
         elevation:5
     }
 });
+export default CategoriesStyles
