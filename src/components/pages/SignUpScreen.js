@@ -4,7 +4,7 @@ import useForm from '../utiities/useForm';
 import FormSubmitButton from '../elements/FormSubmit';
 import validateRegister from '../utiities/formValidation';
 import ValidationError from '../elements/ValidationError';
-import UserPool from '../../UserPool';
+import UserPool from '../utiities/UserPool';
 import { setStorageItem } from '../../services/localStorage';
 
 const SignUpScreen = ({ navigation }) => {
