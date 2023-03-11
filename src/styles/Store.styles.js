@@ -1,4 +1,3 @@
-import react from "react";
 import {  StyleSheet } from "react-native";
 
 const StoreStyles = StyleSheet.create({
