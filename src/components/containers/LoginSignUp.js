@@ -15,7 +15,7 @@ import LoginScreen from "../pages/LoginScreen";
 const LoginSignUp = ({ verified, navigation }) => {
   const [active, setActive] = useState(false);
   const [width, setWidth] = useState(0);
-  const { isNotVerified } = useContext(AuthContext);
+  const { toggleVerified } = useContext(AuthContext);
 
   let transformX = useRef(new Animated.Value(0)).current;
   const { width: windowWidth } = useWindowDimensions();
@@ -43,7 +43,7 @@ const LoginSignUp = ({ verified, navigation }) => {
   const toggleScreen = () => {
     if(verified === true) {
       setActive(false);
-      isNotVerified();
+      toggleVerified();
     } else {
       setActive(false);
     }

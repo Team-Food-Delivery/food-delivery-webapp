@@ -1,5 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+/*
+  sample local storage JSON:
+  pass key into storage function for below JSON, 'userAuth'
+  {
+    email: 'test@test.com,
+    authToken: 'aijoij32j4',
+    loggedIn: true
+  }
+*/
+
 const setStorageItem = async (key, value) => {
   try {
     await AsyncStorage.setItem(key, value)
@@ -21,9 +31,7 @@ const getStorageItem = async (key) => {
   try {
     const value = await AsyncStorage.getItem(key)
     console.log(value)
-    if(value !== null) {
-      return value
-    }
+    return value !== null ? value : null;
   } catch(e) {
     throw Error(`Incorrect key or doesn't exist.`)
   }
@@ -32,7 +40,7 @@ const getStorageItem = async (key) => {
 const getStorageObject = async (key) => {
   try {
     const jsonValue = await AsyncStorage.getItem(key)
-    return jsonValue != null ? JSON.parse(jsonValue) : null
+    return jsonValue !== null ? JSON.parse(jsonValue) : null
   } catch(e) {
     throw Error(`Incorrect key or doesn't exist.`)
   }

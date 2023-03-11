@@ -1,22 +1,47 @@
 import React, { createContext, useState } from 'react';
+import { getStorageObject, mergeStorageItem } from '../services/localStorage';
 
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [verified, setVerified] = useState(false);
+  const [authError, setAuthError] = useState(null);
+  const [authData, setAuthData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const isVerified = () => {
-    setVerified(true);
+  const toggleVerified = () => {
+    setVerified(!verified);
+  };
+
+  const setLogin = async () => {
+    try {
+      await mergeStorageItem('userAuth', { isLoggedIn: true });
+      const authObject = await getStorageObject('userAuth');
+      authObject !== null ? setAuthData(authObject) : null; 
+    } catch(err) {
+      setAuthError(err);
+    } finally {
+      setLoading(false);
+    }
   }
 
-  const isNotVerified = () => {
-    setVerified(false);
+  const setLogout = async () => {
+    try {
+      await mergeStorageItem('userAuth', { isLoggedIn: false });
+      setAuthData(null);
+    } catch(err) {
+      setAuthError(err);
+    }
   }
 
   const values = {
     verified, 
-    isVerified,
-    isNotVerified
+    toggleVerified,
+    setLogin,
+    setLogout,
+    authError,
+    authData,
+    loading
   }
 
   return (

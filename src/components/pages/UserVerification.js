@@ -58,7 +58,7 @@ const UserVerification = () => {
   });
 
   const navigation = useNavigation();
-  const { isVerified } = useContext(AuthContext);
+  const { toggleVerified } = useContext(AuthContext);
 
   const renderCell = ({index, symbol, isFocused}) => {
     const hasValue = Boolean(symbol);
@@ -101,7 +101,7 @@ const UserVerification = () => {
   };
 
   const delayNavigateToLogin = () => {
-    isVerified();
+    toggleVerified();
     setTimeout(() => {
       navigation.navigate('Home');
     }, 1000)

@@ -7,11 +7,12 @@ import {
   Keyboard, 
   TouchableWithoutFeedback
 } from 'react-native';
-import { useRef, useState } from 'react';
+import { useRef, useState, useContext } from 'react';
 import FormSubmitButton from '../elements/FormSubmit';
 import ValidationError from '../elements/ValidationError';
 import AuthService from '../../services/Auth';
 import { setStorageObject } from '../../services/localStorage';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const DismissKeyboard = ({children}) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -26,6 +27,8 @@ const LoginScreen = () => {
   const [formErrors, setFormErrors] = useState(null);
   const [response, setResponse] = useState("");
   const { width } = useWindowDimensions();
+  
+  const { setLogin } = useContext(AuthContext)
 
   const styles = StyleSheet.create({
     loginContainer: {
@@ -73,8 +76,10 @@ const LoginScreen = () => {
       AuthService.login(values.email, values.password)
         .then(async authToken => {
           const userObject = { email: values.email, authToken };
+
           try {
             await setStorageObject('userAuth', userObject)
+            await setLogin();
           } catch(e) {
             console.error(e)
           }
