@@ -19,14 +19,15 @@ const CarouselDetails = ({item}) => {
         stars.push(<Image key={i} resizeMode='contain' source={BlackStarIcon} style={styles.star}/>)
     }
     for(let i=0; i < item.rating - stars.length; i++) {
-        stars.push(<Image  key={stars.length-i} resizeMode='contain' source={WhiteStarIcon} style={styles.star}/>)
+
+        stars.push(<Image key={stars.length+i} resizeMode='contain' source={WhiteStarIcon} style={styles.star}/>)
     }
 
     return (
         <View>
             <Text>{item.store}</Text>
+            <Text>{item.dish}</Text>
             <View style={styles.starContainer}>{stars}</View>
-            <Text>{item.price}</Text>
         </View>
     )
 }
