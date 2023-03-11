@@ -10,9 +10,9 @@ const CategoriesStyles = StyleSheet.create({
         alignSelf: 'flex-start'
     },
     item:{
-        width: 75,
-        height: 75,
-        margin: 25,
+        width: 50,
+        height: 50,
+        margin: 13,
     },
     shadow: {
         shadowColor: '#202020',
