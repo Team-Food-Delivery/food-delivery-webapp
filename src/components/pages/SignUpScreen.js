@@ -1,11 +1,17 @@
 import { useState, useRef } from 'react';
-import { StyleSheet, SafeAreaView, View, Dimensions, TextInput, Button } from "react-native";
+import { 
+  StyleSheet, 
+  SafeAreaView, 
+  View, 
+  useWindowDimensions, 
+  TextInput 
+} from "react-native";
 import useForm from '../utiities/useForm';
 import FormSubmitButton from '../elements/FormSubmit';
 import validateRegister from '../utiities/formValidation';
 import ValidationError from '../elements/ValidationError';
 import UserPool from '../utiities/UserPool';
-import { setStorageItem } from '../../services/localStorage';
+import { setStorageObject } from '../../services/localStorage';
 
 const SignUpScreen = ({ navigation }) => {
   const { handleChange, handleSubmit, values, errors} = useForm({
@@ -16,19 +22,19 @@ const SignUpScreen = ({ navigation }) => {
   const [submitError, setSubmitError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const password = useRef(null);
-  const confirmPassword = useRef(null)
+  const confirmPassword = useRef(null);
+  const { width } = useWindowDimensions();
 
   function submitForm() {
-    console.log('submit');
-    return;
     UserPool.signUp(values.email, values.password, [], null, (err, data) => {
       if(err.name === 'UsernameExistsException') {
         setSubmitError(true);
         setErrorMessage('An account with the given email already exists.');
       } else {
+        const userObject = { email: values.email, authToken: '' };
         setSubmitError(false);
         setErrorMessage("");
-        setStorageItem('registeredEmail', values.email);
+        setStorageObject('userAuth', userObject);
         navigation.navigate('Verification');
       }
     })
@@ -37,16 +43,16 @@ const SignUpScreen = ({ navigation }) => {
   const styles = StyleSheet.create({
     signUpContainer: {
       marginTop: 40,
-      width: Dimensions.get('window').width,
+      width: width,
       alignItems: "center"
     },
     submitButton: {
-      maxWidth: Dimensions.get('window').width,
+      maxWidth: width,
       alignItems: 'center', 
       justifyContent: 'center'
     },
     inputField: {
-      width: Dimensions.get('window').width * 0.8,
+      width: width * 0.8,
       marginBottom: 20,
       padding: 15,
       fontSize: 16
@@ -89,13 +95,13 @@ const SignUpScreen = ({ navigation }) => {
           ref={confirmPassword}
           onChangeText={val => handleChange(val, 'confirmPassword')}
         />
-        {errors.password && <ValidationError message={errors.password}/>}
+        {errors.password && <ValidationError message={errors.password} />}
       </View>
       <View>
-        {submitError && <ValidationError message={errorMessage}/>}
+        {submitError && <ValidationError message={errorMessage} />}
       </View>
       <View style={styles.submitButton}>
-        <FormSubmitButton onPress={handleSubmit} title={'Sign Up'}/>
+        <FormSubmitButton onPress={handleSubmit} title={'Sign Up'} />
       </View>
     </SafeAreaView>
   )

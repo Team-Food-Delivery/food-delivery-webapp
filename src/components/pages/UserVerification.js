@@ -1,6 +1,6 @@
 import { ActivityIndicator, Animated, Image, SafeAreaView, Text, View, TouchableOpacity } from 'react-native';
 import React, { useState, useContext } from 'react';
-import { getStorageItem } from '../../services/localStorage';
+import { getStorageObject } from '../../services/localStorage';
 import ValidationError from '../elements/ValidationError';
 import { codeRegistration, resendConfirmationCode } from '../../services/Auth';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -58,7 +58,7 @@ const UserVerification = () => {
   });
 
   const navigation = useNavigation();
-  const { isVerified } = useContext(AuthContext);
+  const { toggleVerified } = useContext(AuthContext);
 
   const renderCell = ({index, symbol, isFocused}) => {
     const hasValue = Boolean(symbol);
@@ -101,7 +101,7 @@ const UserVerification = () => {
   };
 
   const delayNavigateToLogin = () => {
-    isVerified();
+    toggleVerified();
     setTimeout(() => {
       navigation.navigate('Home');
     }, 1000)
@@ -111,9 +111,9 @@ const UserVerification = () => {
     if(value.length <= 5) {
       setHasError(true);
     } else {
-      getStorageItem('registeredEmail')
-        .then(email => {
-          codeRegistration(email, value)
+      getStorageObject('userAuth')
+        .then(userAuth => {
+          codeRegistration(userAuth.email, value)
             .then(() => {
               setIsLoading(true);
               setHasError(false);

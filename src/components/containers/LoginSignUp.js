@@ -1,5 +1,5 @@
 import { 
-  Dimensions,
+  useWindowDimensions,
   Text, 
   StyleSheet, 
   SafeAreaView, 
@@ -7,15 +7,18 @@ import {
   TouchableOpacity,
   Animated
 } from "react-native";
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
+import { AuthContext } from "../../contexts/AuthContext";
 import SignUpScreen from "../pages/SignUpScreen";
 import LoginScreen from "../pages/LoginScreen";
 
 const LoginSignUp = ({ verified, navigation }) => {
   const [active, setActive] = useState(false);
   const [width, setWidth] = useState(0);
+  const { toggleVerified } = useContext(AuthContext);
 
-  let transformX = useRef(new Animated.Value(0)).current
+  let transformX = useRef(new Animated.Value(0)).current;
+  const { width: windowWidth } = useWindowDimensions();
 
   useEffect(() => {
     if (active || verified) {
@@ -37,6 +40,15 @@ const LoginSignUp = ({ verified, navigation }) => {
     setWidth(event.nativeEvent.layout.width);
   }
 
+  const toggleScreen = () => {
+    if(verified === true) {
+      setActive(false);
+      toggleVerified();
+    } else {
+      setActive(false);
+    }
+  }
+
   const styleBarTranslation = {
     width: width / 2 - 2 - 5*2,
     transform: [
@@ -47,6 +59,60 @@ const LoginSignUp = ({ verified, navigation }) => {
       })
     }
   ]}
+
+  const styles = StyleSheet.create({
+    bar: {
+      position: 'absolute',
+      height: 41 - 2 * 2,
+      top: 1,
+      bottom: 2,
+      borderRadius: 100,
+      backgroundColor: '#3f6186',
+    },
+    container: {
+      zIndex: 1,
+      position: "absolute",
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: "#fff",
+      left: 0,
+      right: 0,
+      marginLeft: 0,
+      marginRight: 0,
+      maxWidth: windowWidth,
+      height: "55%",
+      borderRadius: 50
+    },
+    buttonContainer: {
+      flexDirection: "row",
+      justifyContent: "center",
+      width: "80%",
+      position: "absolute",
+      backgroundColor: "#fff",
+      borderRadius: 100,
+      borderColor: "#9e9e9e",
+      borderWidth: 0.1,
+      padding: 10,
+      top: 15
+    },
+    buttons: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    buttonText: {
+      width: "50%",
+      textAlign: "center",
+      fontWeight: "bold"
+    },
+    inactiveTextColor: {
+      color: "#3f6186",
+    },
+    activeTextColor: {
+      color: "#fff",
+    }
+  })
+  
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.buttonContainer} onLayout={onLayout}>
@@ -56,7 +122,7 @@ const LoginSignUp = ({ verified, navigation }) => {
             Login
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity hitSlop={{top: 10, left: -5, bottom: 10 }} style={styles.buttons} onPress={() => setActive(false)}>
+        <TouchableOpacity hitSlop={{top: 10, left: -5, bottom: 10 }} style={styles.buttons} onPress={() => toggleScreen()}>
           <Text style={[(active || verified) === true ? styles.inactiveTextColor : styles.activeTextColor, styles.buttonText]}>
             Sign Up
           </Text>
@@ -70,58 +136,5 @@ const LoginSignUp = ({ verified, navigation }) => {
     </SafeAreaView>
   )
 }
-
-const styles = StyleSheet.create({
-  bar: {
-    position: 'absolute',
-    height: 41 - 2 * 2,
-    top: 1,
-    bottom: 2,
-    borderRadius: 100,
-    backgroundColor: '#3f6186',
-  },
-  container: {
-    zIndex: 1,
-    position: "absolute",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#fff",
-    left: 0,
-    right: 0,
-    marginLeft: 0,
-    marginRight: 0,
-    maxWidth: Dimensions.get('window').width,
-    height: "55%",
-    borderRadius: 50
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    width: Dimensions.get('window').width * 0.8,
-    position: "absolute",
-    backgroundColor: "#fff",
-    borderRadius: 100,
-    borderColor: "#9e9e9e",
-    borderWidth: 0.1,
-    padding: 10,
-    top: 15
-  },
-  buttons: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  buttonText: {
-    width: Dimensions.get('window').width / 2,
-    textAlign: "center",
-    fontWeight: "bold"
-  },
-  inactiveTextColor: {
-    color: "#3f6186",
-  },
-  activeTextColor: {
-    color: "#fff",
-  }
-})
 
 export default LoginSignUp;

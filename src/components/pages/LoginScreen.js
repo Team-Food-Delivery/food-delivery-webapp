@@ -1,16 +1,18 @@
 import { 
+  useWindowDimensions,
   View, 
   TextInput,
   StyleSheet, 
   SafeAreaView,
-  Dimensions,
   Keyboard, 
   TouchableWithoutFeedback
 } from 'react-native';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useContext } from 'react';
 import FormSubmitButton from '../elements/FormSubmit';
 import ValidationError from '../elements/ValidationError';
 import AuthService from '../../services/Auth';
+import { setStorageObject } from '../../services/localStorage';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const DismissKeyboard = ({children}) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -19,18 +21,35 @@ const DismissKeyboard = ({children}) => (
 )
 
 const LoginScreen = () => {
+  let errors = {}
   const password = useRef();
-  const [values, setValues] = useState({ email: '', password: '' })
-  const errors = {};
-
-  useEffect(() => {
-    emailValidation();
-    passwordValidation();
-  },[errors])
-
-  const emailValidation = () => {
-    let emailRegex = /\S+@\S+\.\S+/
+  const [values, setValues] = useState({ email: '', password: '' });
+  const [formErrors, setFormErrors] = useState(null);
+  const [response, setResponse] = useState("");
+  const { width } = useWindowDimensions();
   
+  const { setLogin } = useContext(AuthContext)
+
+  const styles = StyleSheet.create({
+    loginContainer: {
+      width: width,
+    },
+    inputField: {
+      marginBottom: 20,
+      padding: 15,
+      fontSize: 16,
+      width: width * 0.8
+    },
+    submitButton: {
+      maxWidth: width,
+      marginTop: 10,
+      alignItems: 'center', 
+      justifyContent: 'center'
+    },
+  })
+
+  const loginValidation = () => {
+    let emailRegex = /\S+@\S+\.\S+/
     if(values.email.length === 0) {
       errors.email = 'Email address is required'
     } else if(!emailRegex.test(values.email)) {
@@ -38,28 +57,37 @@ const LoginScreen = () => {
     } else if (values.email.length && emailRegex.test(values.email)) {
       delete errors.email
     }  
-  }
 
-  const passwordValidation = () => {
     if (values.password.length === 0) {
       errors.password = 'Password field cannot be blank'
     } else if (values.password.length > 1) {
       delete errors.password
     }
+    setFormErrors(errors)
   }
 
   const handleChange = (value, fieldName) => {
     setValues({ ...values, [fieldName]: value });
-    
-    console.log(errors)
+    loginValidation();
   }
 
-  const handleLoginSubmit = () => {
+  const handleLoginSubmit =  () => {
     if(Object.keys(errors).length === 0) {
-      //send login data
-    } else {
+      AuthService.login(values.email, values.password)
+        .then(async authToken => {
+          const userObject = { email: values.email, authToken };
 
-    }
+          try {
+            await setStorageObject('userAuth', userObject)
+            await setLogin();
+          } catch(e) {
+            console.error(e)
+          }
+        })
+        .catch(err => {
+          setResponse(err);
+        })
+    } 
   }
   
   return (
@@ -77,7 +105,7 @@ const LoginScreen = () => {
             onSubmitEditing={() => password.current.focus()}
             onChangeText={val => handleChange(val, 'email')}
           /> 
-          {errors.email && <ValidationError message={errors.email}/>}
+          {formErrors?.email && <ValidationError message={formErrors.email}/>}
           <TextInput
             value={values.password}
             style={styles.inputField}
@@ -91,7 +119,10 @@ const LoginScreen = () => {
             onSubmitEditing={() => password.current.blur()}
             onChangeText={val => handleChange(val, 'password')}
           />
-          {errors && <ValidationError message={errors.password}/>}
+          {formErrors?.password && <ValidationError message={formErrors.password}/>}
+        </View>
+        <View>
+          {response && <ValidationError message={response} />}
         </View>
       {/* </DismissKeyboard> */}
       <View style={styles.submitButton}>
@@ -100,23 +131,5 @@ const LoginScreen = () => {
     </SafeAreaView>
   )
 }
-
-const styles = StyleSheet.create({
-  loginContainer: {
-    width: Dimensions.get('window').width,
-  },
-  inputField: {
-    marginBottom: 20,
-    padding: 15,
-    fontSize: 16,
-    width: Dimensions.get('window').width * 0.8
-  },
-  submitButton: {
-    maxWidth: Dimensions.get('window').width,
-    marginTop: 10,
-    alignItems: 'center', 
-    justifyContent: 'center'
-  },
-})
 
 export default LoginScreen;
