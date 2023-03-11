@@ -1,8 +1,9 @@
-import react from "react";
 import { View, FlatList, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import CarouselDetails from "./CarouselDetails";
 
 const styles = StyleSheet.create({
     title:{
+        marginLeft: 30,
         fontSize: 25,
         fontFamily: 'Arial',
         color: 'gray',
@@ -12,7 +13,7 @@ const styles = StyleSheet.create({
 
 const Carousel = ({title, customStyle, data}) => {
     return(
-        <View>
+        <View style={styles.container}>
             <Text style={styles.title}>{title}</Text>
                 <FlatList
                     horizontal
@@ -23,14 +24,7 @@ const Carousel = ({title, customStyle, data}) => {
                         return (
                             <TouchableOpacity style={customStyle.itemContainer}>
                                 <Image resizeMode='contain' source={item.source} style={customStyle.item}/>
-                                {item.store && 
-                                    <View>
-                                        <Text>{item.store}</Text>
-                                        <Text>{item.rating}</Text>
-                                        <Text>{item.price}</Text>
-                                    </View>
-                                }
-
+                                {item.store && <CarouselDetails item={item} /> }
                             </TouchableOpacity>
                         )
                     }}
