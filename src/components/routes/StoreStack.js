@@ -6,7 +6,7 @@ const Stack = createNativeStackNavigator();
 const StoreStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Stores" component={MainStore} />
+      <Stack.Screen name="Store" component={MainStore} />
     </Stack.Navigator>
   )
 }
