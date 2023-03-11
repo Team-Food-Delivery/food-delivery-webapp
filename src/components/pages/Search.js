@@ -18,6 +18,9 @@ const styles = StyleSheet.create({
         marginHorizontal: 30,
         borderRadius: 40,
         backgroundColor: '#fff'
+    },
+    placeholderText: {
+        color: 'gray'
     }
 });
 
@@ -30,6 +33,7 @@ const Search = ({storeSearch, onStoreSearchChange}) => {
             </Text>
             <View style={styles.searchBackground}>
                 <TextInput
+                    style={styles.placeholderText}
                     placeholder="Search for a food item"
                     value={storeSearch}
                     onChangeText={newStoreSearch => onStoreSearchChange(newStoreSearch)}
