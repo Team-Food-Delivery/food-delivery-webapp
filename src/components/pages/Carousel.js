@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, FlatList, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import CarouselDetails from "./CarouselDetails";
-import LinearGradient from 'expo-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const styles = StyleSheet.create({
     title:{
