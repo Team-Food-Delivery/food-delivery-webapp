@@ -30,7 +30,6 @@ const Carousel = ({title, customStyle, data}) => {
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => {
                         return (
-                            <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']}>
                                 <TouchableOpacity
                                     style={[customStyle.itemContainer, 
                                         isPress.pressedId !== item.id ? customStyle.shadow : customStyle.greenShadow
@@ -40,7 +39,6 @@ const Carousel = ({title, customStyle, data}) => {
                                     <Image resizeMode='contain' source={item.source} style={customStyle.item}/>
                                     {item.store && <CarouselDetails item={item} /> }
                                 </TouchableOpacity>
-                            </LinearGradient>
 
                         )
                     }}
