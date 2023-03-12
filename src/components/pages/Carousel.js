@@ -41,6 +41,12 @@ const Carousel = ({title, customStyle, data}) => {
             : [ '#fff', isPress.pressedId !== item.id ? '#fff': '#0fde12'];
     }
 
+    const checkSize = (title, item) => {
+        return title === 'Categories' 
+            ? customStyle.item 
+            : isPress.pressedId !== item.id ? customStyle.item : customStyle.itemEnlarge
+    }
+
     const renderItem = (item ) => {
         return (      
             <TouchableOpacity
@@ -55,7 +61,7 @@ const Carousel = ({title, customStyle, data}) => {
                     end={{x:0.5,y:1.1}}
 
                 >
-                    <Image resizeMode='contain' source={item.source} style={customStyle.item}/>
+                    <Image resizeMode='contain' source={item.source} style={checkSize(title, item)}/>
                     {item.store && <CarouselDetails item={item} /> }
                 </LinearGradient>
             </TouchableOpacity>

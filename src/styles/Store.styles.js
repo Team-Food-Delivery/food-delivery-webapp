@@ -10,6 +10,10 @@ const StoreStyles = StyleSheet.create({
     item:{
         width: 125,
         height: 140,
+    },
+    itemEnlarge: {
+        width: 150,
+        height: 165,
     }
 });
 export default StoreStyles;
