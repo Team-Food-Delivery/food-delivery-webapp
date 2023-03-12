@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { View, FlatList, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import CarouselDetails from "./CarouselDetails";
 
@@ -12,6 +13,12 @@ const styles = StyleSheet.create({
 });
 
 const Carousel = ({title, customStyle, data}) => {
+    
+    const [isPress, setIsPress] = useState({
+        pressed: false,
+        pressedId: null
+    });
+
     return(
         <View style={styles.container}>
             <Text style={styles.title}>{title}</Text>
@@ -19,10 +26,15 @@ const Carousel = ({title, customStyle, data}) => {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     data={data}
-                    keyExtractor={(img) => img.id}
+                    keyExtractor={(item) => item.id}
                     renderItem={({ item }) => {
                         return (
-                            <TouchableOpacity style={customStyle.itemContainer}>
+                            <TouchableOpacity
+                                style={[customStyle.itemContainer, 
+                                    isPress.pressedId !== item.id ? customStyle.shadow : customStyle.greenShadow
+                                ]}
+                                onPress={() => setIsPress({...isPress, pressedId: item.id})}
+                            >
                                 <Image resizeMode='contain' source={item.source} style={customStyle.item}/>
                                 {item.store && <CarouselDetails item={item} /> }
                             </TouchableOpacity>

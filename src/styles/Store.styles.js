@@ -3,7 +3,7 @@ import {  StyleSheet } from "react-native";
 const StoreStyles = StyleSheet.create({
     itemContainer: {
         borderWidth: 1,
-        borderColor: 'black',
+        borderColor: '#fff',
         padding: 10,
         margin: 15,
         borderRadius: 20,
@@ -14,9 +14,19 @@ const StoreStyles = StyleSheet.create({
         height: 140,
     },
     shadow: {
-        shadowColor: '#202020',
-        shadowOffset: {width: 0, height: 2},
-        shadowRadius: 5,
+        backgroundColor:'#fff',
+        shadowColor: '#000',
+        shadowOffset: {width: 0, height: 3},
+        shadowRadius: 6,
+        shadowOpacity: 0.2,
+        elevation:5
+    },
+    greenShadow: {
+        backgroundColor: '#fff',
+        shadowColor: '#00cc00',
+        shadowOffset: {width: 0, height: 5},
+        shadowRadius: 7,
+        shadowOpacity: 0.6,
         elevation:5
     }
 });
