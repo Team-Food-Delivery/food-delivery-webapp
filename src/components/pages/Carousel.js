@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { View, FlatList, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import CarouselDetails from "./CarouselDetails";
+import LinearGradient from 'expo-linear-gradient';
 
 const styles = StyleSheet.create({
     title:{
@@ -29,15 +30,18 @@ const Carousel = ({title, customStyle, data}) => {
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => {
                         return (
-                            <TouchableOpacity
-                                style={[customStyle.itemContainer, 
-                                    isPress.pressedId !== item.id ? customStyle.shadow : customStyle.greenShadow
-                                ]}
-                                onPress={() => setIsPress({...isPress, pressedId: item.id})}
-                            >
-                                <Image resizeMode='contain' source={item.source} style={customStyle.item}/>
-                                {item.store && <CarouselDetails item={item} /> }
-                            </TouchableOpacity>
+                            <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']}>
+                                <TouchableOpacity
+                                    style={[customStyle.itemContainer, 
+                                        isPress.pressedId !== item.id ? customStyle.shadow : customStyle.greenShadow
+                                    ]}
+                                    onPress={() => setIsPress({...isPress, pressedId: item.id})}
+                                >
+                                    <Image resizeMode='contain' source={item.source} style={customStyle.item}/>
+                                    {item.store && <CarouselDetails item={item} /> }
+                                </TouchableOpacity>
+                            </LinearGradient>
+
                         )
                     }}
                 />
