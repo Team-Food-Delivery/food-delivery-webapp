@@ -1,9 +1,9 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { useContext, useEffect } from 'react';
-import { AuthContext } from "../../contexts/AuthContext";
+import { AuthContext } from "../contexts/AuthContext";
 
 import AuthStack from './AuthStack';
-import StoreStack from "./StoreStack";
+import MainTabs from "./MainTabs";
 
 const MainRouter = () => {
   const { authData, loading } = useContext(AuthContext);
@@ -20,7 +20,8 @@ const MainRouter = () => {
 */
   return (
     <NavigationContainer>
-      {authData?.isLoggedIn ? <StoreStack /> : <AuthStack />}
+      <MainTabs />
+      {/* {authData?.isLoggedIn ? <MainTabs /> : <AuthStack />} */}
     </NavigationContainer>
   )
 };

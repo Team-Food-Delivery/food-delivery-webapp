@@ -22,13 +22,13 @@ const styles = StyleSheet.create({
     }
 })
 const MainStore = () => {
-    const [storeSearch, setStoreSearch] = useState()
+    const [storeSearch, setStoreSearch] = useState('')
 
     return(
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 <Divider />
-                <Search storeSearch={storeSearch} onStoreSearchChange={setStoreSearch}/>
+                <Search setStoreSearch={setStoreSearch} storeSearch={storeSearch} onStoreSearchChange={setStoreSearch}/>
                 <Divider />
                 <Carousel title='Categories' customStyle={CategoriesStyles} data={images} />
                 <Divider />

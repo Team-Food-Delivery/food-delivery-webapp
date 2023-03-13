@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Verification from "../containers/Verification";
-import HomeScreen from "../pages/HomeScreen";
+import Verification from "../components/containers/Verification";
+import HomeScreen from "../components/pages/HomeScreen";
 
 const Stack = createNativeStackNavigator();
 

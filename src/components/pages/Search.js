@@ -1,4 +1,5 @@
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { Feather, Entypo } from '@expo/vector-icons';
 
 const styles = StyleSheet.create({
     title: {
@@ -12,19 +13,23 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     searchBackground: {
-
-        paddingVertical: 20,
-        paddingHorizontal: 20,
+        paddingVertical: 15,
+        paddingHorizontal: 15,
         marginHorizontal: 30,
         borderRadius: 40,
         backgroundColor: '#fff'
     },
-    placeholderText: {
-        color: 'gray'
+    searchBar: {
+        flexDirection:"row"
+    },
+    textInput: {
+        color: 'gray',
+        width: "90%",
+        padding: 5
     }
 });
 
-const Search = ({storeSearch, onStoreSearchChange}) => {
+const Search = ({ storeSearch, onStoreSearchChange, setStoreSearch }) => {
     
     return (
         <View>
@@ -32,14 +37,30 @@ const Search = ({storeSearch, onStoreSearchChange}) => {
                 Choose the {<Text style={[styles.title, styles.bold]}>Food you love</Text>}
             </Text>
             <View style={styles.searchBackground}>
-                <TextInput
-                    style={styles.placeholderText}
-                    placeholder="Search for a food item"
-                    value={storeSearch}
-                    onChangeText={newStoreSearch => onStoreSearchChange(newStoreSearch)}
-                    onEndEditing={() => console.log('TODO: Submit a request to API')}
-                >
-                </TextInput>
+                <View style={styles.searchBar}>
+                    <Feather
+                        name="search"
+                        size={25}
+                        color="black"
+                        style={{ marginLeft: 1, marginRight: 5 }}
+                    />
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="Search for a food item"
+                        value={storeSearch}
+                        onChangeText={newStoreSearch => onStoreSearchChange(newStoreSearch)}
+                        onEndEditing={() => console.log('TODO: Submit a request to API')}
+                    />
+                    {storeSearch && (
+                        <Entypo 
+                            name="cross" 
+                            size={25} 
+                            color="black" 
+                            style={{ padding: 1 }} 
+                            onPress={() => setStoreSearch("")}
+                        />
+                    )}
+                </View>
             </View>
         </View>
     )
