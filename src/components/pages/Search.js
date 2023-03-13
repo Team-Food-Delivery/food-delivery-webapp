@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     }
 });
 
-const Search = ({ storeSearch, onStoreSearchChange, setStoreSearch }) => {
+const Search = ({ storeSearch, onStoreSearchChange }) => {
     
     return (
         <View>
@@ -51,7 +51,7 @@ const Search = ({ storeSearch, onStoreSearchChange, setStoreSearch }) => {
                         onChangeText={newStoreSearch => onStoreSearchChange(newStoreSearch)}
                         onEndEditing={() => console.log('TODO: Submit a request to API')}
                     />
-                    {storeSearch && (
+                    {onStoreSearchChange && (
                         <Entypo 
                             name="cross" 
                             size={25} 
