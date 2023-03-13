@@ -20,8 +20,7 @@ const MainRouter = () => {
 */
   return (
     <NavigationContainer>
-      <MainTabs />
-      {/* {authData?.isLoggedIn ? <MainTabs /> : <AuthStack />} */}
+      {authData?.isLoggedIn ? <MainTabs /> : <AuthStack />}
     </NavigationContainer>
   )
 };
