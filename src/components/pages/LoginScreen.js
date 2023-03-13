@@ -5,9 +5,12 @@ import {
   StyleSheet, 
   SafeAreaView,
   Keyboard, 
+  Pressable,
   TouchableWithoutFeedback
 } from 'react-native';
 import { useRef, useState, useContext } from 'react';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { usePasswordVisibility } from '../utiities/usePasswordVisibility';
 import FormSubmitButton from '../elements/FormSubmit';
 import ValidationError from '../elements/ValidationError';
 import AuthService from '../../services/Auth';
@@ -25,20 +28,31 @@ const LoginScreen = () => {
   const password = useRef();
   const [values, setValues] = useState({ email: '', password: '' });
   const [formErrors, setFormErrors] = useState(null);
+  
   const [response, setResponse] = useState("");
   const { width } = useWindowDimensions();
+  const { passwordShow, icon, handlePasswordVisibility } = usePasswordVisibility();
   
   const { setLogin } = useContext(AuthContext)
 
   const styles = StyleSheet.create({
     loginContainer: {
       width: width,
+      flexDirection: 'row',
     },
     inputField: {
       marginBottom: 20,
       padding: 15,
       fontSize: 16,
       width: width * 0.8
+    },
+    passwordField: {
+      position: 'relative'
+    },
+    passwordVisibility: {
+      position: 'absolute',
+      top: 15,
+      right: 10
     },
     submitButton: {
       maxWidth: width,
@@ -106,19 +120,24 @@ const LoginScreen = () => {
             onChangeText={val => handleChange(val, 'email')}
           /> 
           {formErrors?.email && <ValidationError message={formErrors.email}/>}
-          <TextInput
-            value={values.password}
-            style={styles.inputField}
-            autoCapitalize='none'
-            autofocus={true}
-            blurOnSubmit={false}
-            returnKeyType={'done'}
-            secureTextEntry={true}
-            placeholder={"Password"}
-            ref={password}
-            onSubmitEditing={() => password.current.blur()}
-            onChangeText={val => handleChange(val, 'password')}
-          />
+          <View>
+            <TextInput
+              value={values.password}
+              style={[styles.inputField, styles.passwordField]}
+              autoCapitalize='none'
+              autofocus={true}
+              blurOnSubmit={false}
+              returnKeyType={'done'}
+              secureTextEntry={passwordShow}
+              placeholder={"Password"}
+              ref={password}
+              onSubmitEditing={() => password.current.blur()}
+              onChangeText={val => handleChange(val, 'password')}
+            />
+            <Pressable style={styles.passwordVisibility} onPress={handlePasswordVisibility}>
+              <MaterialCommunityIcons name={icon} size={22} color="#232323" />
+            </Pressable>
+          </View>
           {formErrors?.password && <ValidationError message={formErrors.password}/>}
         </View>
         <View>
