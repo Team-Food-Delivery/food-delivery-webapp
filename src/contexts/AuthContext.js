@@ -13,6 +13,17 @@ export function AuthProvider({ children }) {
     setVerified(!verified);
   };
 
+  const getAuthFromStorage = async () => {
+    try {
+      const authObject = await getStorageObject('userAuth');
+      authObject !== null ? setAuthData(authObject) : null; 
+    } catch(err) {
+      setAuthError(err);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   const setLogin = async () => {
     try {
       await mergeStorageItem('userAuth', { isLoggedIn: true });
@@ -39,6 +50,7 @@ export function AuthProvider({ children }) {
     toggleVerified,
     setLogin,
     setLogout,
+    getAuthFromStorage,
     authError,
     authData,
     loading

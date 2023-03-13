@@ -28,7 +28,7 @@ const MainStore = () => {
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 <Divider />
-                <Search storeSearch={storeSearch} onStoreSearchChange={setStoreSearch}/>
+                <Search storeSearch={storeSearch} setStoreSearch={setStoreSearch}/>
                 <Divider />
                 <Carousel title='Categories' customStyle={CategoriesStyles} data={images} />
                 <Divider />

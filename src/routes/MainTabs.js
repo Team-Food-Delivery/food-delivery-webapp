@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native';
-import { createBottomTabNavigator  } from "@react-navigation/bottom-tabs";
+import { createBottomTabNavigator, useBottomTabBarHeight  } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 import MainStore from '../components/containers/MainStore';
@@ -15,7 +15,9 @@ const Account = () => {
 }
 
 const tabStyles = {
-  paddingBottom: 2, 
+  height: 65,
+  top: 10,
+  borderTopColor: 'transparent',
   borderTopLeftRadius: 25, 
   borderTopRightRadius: 25
 }
@@ -27,7 +29,7 @@ const MainTabs = () => {
       screenOptions={{ 
         headerShown: false,
         tabBarStyle: tabStyles,
-        tabBarLabelStyle: { fontSize: 12 }
+        tabBarLabelStyle: { fontSize: 11 }
     }}>
       <Tab.Screen 
         name="Home" 
