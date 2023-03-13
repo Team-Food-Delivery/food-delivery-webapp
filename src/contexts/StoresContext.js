@@ -10,8 +10,8 @@ export function StoresProvider({ children }) {
   };
 
   return (
-    <StoresProvider.Provider value={values}>
+    <StoresContext.Provider value={values}>
       {children}
-    </StoresProvider.Provider>
+    </StoresContext.Provider>
   )
 }
