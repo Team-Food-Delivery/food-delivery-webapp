@@ -10,6 +10,10 @@
 4. Open expo app and scan the QR code.
 
 ### Testing the App
+#### Environment Vars
+- USER_POOL_ID
+- CLIENT_ID
+- FOOD_DELIVERY_API
 #### From Web
 1. Set FOOD_DELIVERY_API=http://localhost:19006
 #### From Iphone
