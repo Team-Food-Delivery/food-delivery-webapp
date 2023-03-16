@@ -27,7 +27,7 @@ const MainStore = () => {
     const { authData } = useContext(AuthContext);
     
     // Change the FOOD_DELIVERY_API in .env file everytime you start up ngrok and using your phone
-    // If not phone, then set FOOD_DELIVERY_API=htttp://localhost:19006 in .env file
+    // If not phone, then set FOOD_DELIVERY_API=htttp://localhost:8000 in .env file
     const { data, loading, error } = useFetch(`${FOOD_DELIVERY_API}/all/stores`, {
         method: 'POST',
         headers: {
