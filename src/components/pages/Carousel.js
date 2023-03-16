@@ -2,6 +2,12 @@ import { useState } from 'react';
 import { View, FlatList, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import CarouselDetails from "./CarouselDetails";
 import { LinearGradient } from 'expo-linear-gradient';
+import BurgerFriesIcon from '../../img/burger-and-fries2.png'
+import SupremePizzaIcon from '../../img/pizza_2.png'
+import PepperoniPizzaIcon from '../../img/pizza_1.png'
+
+// Fake store pics
+const storePics = [BurgerFriesIcon,SupremePizzaIcon,PepperoniPizzaIcon]
 
 const styles = StyleSheet.create({
     title:{
@@ -28,8 +34,13 @@ const styles = StyleSheet.create({
 
 });
 
-const Carousel = ({title, customStyle, data}) => {
-    
+const Carousel = ({title, customStyle, data: { data, images }}) => {
+
+    // Remove later when we get real images from server
+    const insertImages = (inputData) => inputData.map(d => {
+        d['source'] = storePics[Math.floor(Math.random()*storePics.length)]
+        return d
+    })
     const [isPress, setIsPress] = useState({
         pressed: false,
         pressedId: null
@@ -47,7 +58,7 @@ const Carousel = ({title, customStyle, data}) => {
             : isPress.pressedId !== item.id ? customStyle.item : customStyle.itemEnlarge
     }
 
-    const renderItem = (item ) => {
+    const renderItem = (item) => {
         return (      
             <TouchableOpacity
                 style={
@@ -70,13 +81,14 @@ const Carousel = ({title, customStyle, data}) => {
     return(
         <View style={styles.container}>
             <Text style={styles.title}>{title}</Text>
-                <FlatList
+                
+                {( data || images) && <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    data={data}
+                    data={data ? (insertImages(data)) : images}
                     keyExtractor={(item) => item.id}
                     renderItem={({item})=>renderItem(item)}
-                />
+                />}
         </View>
     )
 }
