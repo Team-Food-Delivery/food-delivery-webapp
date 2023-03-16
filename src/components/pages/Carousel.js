@@ -59,7 +59,6 @@ const Carousel = ({title, customStyle, data}) => {
                     colors={checkTitle(title, item)}
                     style={customStyle.itemContainer}
                     end={{x:0.5,y:1.1}}
-
                 >
                     <Image resizeMode='contain' source={item.source} style={checkSize(title, item)}/>
                     {item.store && <CarouselDetails item={item} /> }
