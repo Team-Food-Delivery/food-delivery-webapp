@@ -34,7 +34,7 @@ const MainStore = () => {
     const { data, loading, error } = useFetch(`${FOOD_DELIVERY_API}/secure`, {
         method: 'GET',
         headers: {
-            authorization: `Bearer ${authData.authToken}`
+            Authorization: `Bearer ${authData.authToken}`
         }
     });
     return(
