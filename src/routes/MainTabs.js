@@ -1,16 +1,28 @@
-import { View, Text } from 'react-native';
+import { useContext } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator  } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { StoresProvider } from '../contexts/StoresContext';
+import { AuthContext } from '../contexts/AuthContext';
 
 import MainStore from '../components/containers/MainStore';
 
 const Tab = createBottomTabNavigator();
 
 const Account = () => {
+  const { setLogout } = useContext(AuthContext);
+
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Account</Text>
+      <TouchableOpacity 
+        onPress={setLogout}
+        style={{
+          alignItems: 'center',
+          backgroundColor: '#DDDDDD', 
+          padding: 10
+      }}>
+        <Text>Sign Out</Text>
+      </TouchableOpacity>
     </View>
   );
 }

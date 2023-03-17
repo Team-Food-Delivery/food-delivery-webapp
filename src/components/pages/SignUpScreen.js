@@ -31,7 +31,7 @@ const SignUpScreen = ({ navigation }) => {
         setSubmitError(true);
         setErrorMessage('An account with the given email already exists.');
       } else {
-        const userObject = { email: values.email, authToken: '' };
+        const userObject = { email: values.email, jwtToken: '' };
         setSubmitError(false);
         setErrorMessage("");
         setStorageObject('userAuth', userObject);

@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react';
-import { getStorageObject, mergeStorageItem } from '../services/localStorage';
+import { signOut } from '../services/Auth';
+import { getStorageObject, mergeStorageItem, removeStorageItem } from '../services/localStorage';
 
 export const AuthContext = createContext();
 
@@ -38,10 +39,14 @@ export function AuthProvider({ children }) {
 
   const setLogout = async () => {
     try {
-      await mergeStorageItem('userAuth', { isLoggedIn: false });
+      await removeStorageItem('userAuth');
+      signOut();
       setAuthData(null);
+      setLoading(true)
     } catch(err) {
       setAuthError(err);
+    } finally {
+      setLoading(false)
     }
   }
 
