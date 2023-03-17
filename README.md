@@ -14,9 +14,7 @@
 - USER_POOL_ID
 - CLIENT_ID
 - FOOD_DELIVERY_API
-#### From Web
-1. Set FOOD_DELIVERY_API=http://localhost:19006
-#### From Iphone
+#### Setup
 1. Open terminal, run `ngrok http 8000`
 2. Set FOOD_DELIVERY_API=`https://`<i>your-generated-url<i>`.ngrok.io`
 ## Visualize Application Logic
