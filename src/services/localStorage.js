@@ -60,10 +60,19 @@ const mergeStorageItem = async (key, value) => {
   }
 }
 
+const removeStorageItem = async (key) => {
+  try {
+    await AsyncStorage.removeItem(key);
+  } catch(err) {
+    throw Error(`Incorrect key or doesn't exist.`)
+  }
+}
+
 export {
   setStorageItem,
   setStorageObject,
   getStorageItem,
   getStorageObject,
-  mergeStorageItem
+  mergeStorageItem,
+  removeStorageItem
 }
