@@ -1,6 +1,6 @@
 import { USER_POOL_ID, CLIENT_ID } from '@env';
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js';
-import { setStorageItem, getStorageObject } from './localStorage';
+import { setStorageItem, getStorageObject, removeStorageItem } from './localStorage';
 
 const poolData = {
   UserPoolId: USER_POOL_ID,
@@ -50,6 +50,20 @@ export function resendConfirmationCode() {
             alert('Another code has been sent to your email. Please enter the code once you have received it.')
           }
         });
+      }
+    })
+    .catch(e => console.log(e))
+}
+
+export function signOut() {
+  getStorageObject('userAuth')
+    .then(userAuth => {
+      userData.Username = userAuth.email;
+
+      if(userData.Username) {
+        const cognitoUser = new CognitoUser(userData);
+        cognitoUser.signOut();
+        removeStorageItem('userAuth');
       }
     })
     .catch(e => console.log(e))

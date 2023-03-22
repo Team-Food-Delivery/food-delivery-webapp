@@ -6,8 +6,9 @@ import AuthStack from './AuthStack';
 import MainTabs from "./MainTabs";
 
 const MainRouter = () => {
-  const { authData, loading } = useContext(AuthContext);
+  const { authData, loading, getAuthFromStorage } = useContext(AuthContext);
   useEffect(() => {
+    getAuthFromStorage();
     console.log(authData)
   },[loading])
 

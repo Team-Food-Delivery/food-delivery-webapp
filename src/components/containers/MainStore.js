@@ -45,7 +45,7 @@ const MainStore = () => {
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 <Divider />
-                <Search storeSearch={storeSearch} onStoreSearchChange={setStoreSearch}/>
+                <Search storeSearch={storeSearch} setStoreSearch={setStoreSearch}/>
                 <Divider />
                 {/* This will need a loading indicator too when we load images from the server */}
                 <Carousel title='Categories' customStyle={CategoriesStyles} data={{images}} /> 

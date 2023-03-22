@@ -88,8 +88,8 @@ const LoginScreen = () => {
   const handleLoginSubmit =  () => {
     if(Object.keys(errors).length === 0) {
       AuthService.login(values.email, values.password)
-        .then(async authToken => {
-          const userObject = { email: values.email, authToken };
+        .then(async jwtToken => {
+          const userObject = { email: values.email, jwtToken };
 
           try {
             await setStorageObject('userAuth', userObject)
