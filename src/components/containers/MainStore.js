@@ -1,8 +1,7 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { StyleSheet, SafeAreaView, ScrollView, ActivityIndicator } from "react-native";
 import Carousel from "../pages/Carousel";
 import Divider from "../pages/Divider";
-import Search from "../pages/Search";
 import CategoriesStyles from "../../styles/Categories.styles";
 import StoreStyles from "../../styles/Store.styles";
 import BurgerIcon from '../../img/burger-outline.png'
@@ -23,7 +22,7 @@ const styles = StyleSheet.create({
 })
 
 const MainStore = () => {
-    const [storeSearch, setStoreSearch] = useState();
+    // const [storeSearch, setStoreSearch] = useState();
     const { authData } = useContext(AuthContext);
     
     // Change the FOOD_DELIVERY_API in .env file everytime you start up ngrok and using your phone
@@ -45,8 +44,6 @@ const MainStore = () => {
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 <Divider />
-                <Search storeSearch={storeSearch} setStoreSearch={setStoreSearch}/>
-                <Divider />
                 {/* This will need a loading indicator too when we load images from the server */}
                 <Carousel title='Categories' customStyle={CategoriesStyles} data={{images}} /> 
                 <Divider />
@@ -54,7 +51,6 @@ const MainStore = () => {
                 {!loading && data && <Carousel title='Stores' customStyle={StoreStyles} data={{ data }} />}
             </ScrollView>
         </SafeAreaView>
-
     )
 }
 export default MainStore;

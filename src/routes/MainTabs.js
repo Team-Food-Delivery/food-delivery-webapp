@@ -6,6 +6,7 @@ import { StoresProvider } from '../contexts/StoresContext';
 import { AuthContext } from '../contexts/AuthContext';
 
 import MainStore from '../components/containers/MainStore';
+import MainSearch from '../components/containers/MainSearch';
 
 const Tab = createBottomTabNavigator();
 
@@ -35,7 +36,7 @@ const tabStyles = {
   borderTopRightRadius: 25
 }
 
-const MainTabs = () => {
+const MainTabs = ({ navigation }) => {
   return (
     <StoresProvider>
       <Tab.Navigator 
@@ -54,6 +55,23 @@ const MainTabs = () => {
             tabBarActiveTintColor: "#E32F45",
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="home" color={color} size={26} />
+            )
+          }}
+        />
+        <Tab.Screen 
+          name="Search" 
+          component={MainSearch} 
+          listeners={({ navigation }) => ({
+            tabPress: () => {
+              navigation.navigate('Search');
+            },
+          })}
+          options={{
+            tabBarLabel: "Search",
+            tabBarLabelPosition: "below-icon",
+            tabBarActiveTintColor: "#E32F45",
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="store-search" color={color} size={26} />
             )
           }}
         />
