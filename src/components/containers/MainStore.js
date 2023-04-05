@@ -30,7 +30,7 @@ const MainStore = () => {
     const { data, loading, error } = useFetch(`${FOOD_DELIVERY_API}/all/stores`, {
         method: 'POST',
         headers: {
-            Authorization: `Bearer ${authData.authToken}`,
+            Authorization: `Bearer ${authData.jwtToken}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({

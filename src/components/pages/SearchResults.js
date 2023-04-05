@@ -1,6 +1,9 @@
-import { StyleSheet, TouchableOpacity, FlatList, Text, SafeAreaView } from "react-native";
+import { StyleSheet, View, TouchableOpacity, FlatList, Text, SafeAreaView } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-const SearchResults = () => {
+const SearchResults = ({ storeData }) => {
+  const navigation = useNavigation();
+
   const persons = [
     { id: "1", name: "Earnest Green" },
     { id: "2", name: "Winston Orn" },
@@ -9,27 +12,45 @@ const SearchResults = () => {
     { id: "5",name: "Michelle Dare" },
   ];
 
-  const Item = ({ name }) => (
-    <TouchableOpacity style={styles.item} onPress={() => console.log('clicked')}>
-      <Text>{name}</Text>
+  const Item = ({ name, storeId }) => (
+    <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('Store Page', { id: storeId})}>
+      <Text style={styles.itemText}>{name}</Text>
     </TouchableOpacity>
   );
 
+  const ItemSeparatorView = () => {
+    return (
+      <View
+        style={styles.itemSeperator}
+      />
+    );
+  };
+
   const styles = StyleSheet.create({
     listContainer: {
+      marginTop: 15,
       backgroundColor: 'white'
     },
     item: {
       padding: 10
+    },
+    itemText: {
+      fontSize: 24
+    },
+    itemSeperator: { 
+      height: 0.5, 
+      width: '100%', 
+      backgroundColor: '#C8C8C8' 
     }
   })
 
   return (
     <SafeAreaView style={styles.listContainer}>
       <FlatList
-        data={persons}
+        data={storeData}
+        ItemSeparatorComponent={ItemSeparatorView}
         renderItem={({ item }) =>(
-          <Item name={item.name}/>
+          <Item name={item.store} storeId={item.id} />
         )}
         keyExtractor={item => item.id}
       />
