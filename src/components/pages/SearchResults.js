@@ -1,19 +1,15 @@
-import { StyleSheet, View, TouchableOpacity, FlatList, Text, SafeAreaView } from "react-native";
+import { StyleSheet, View, Image, TouchableOpacity, FlatList, Text, SafeAreaView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
+import storePlaceholder from '../../img/placeholder-store.png'
+
 const SearchResults = ({ storeData }) => {
+  console.log(storeData)
   const navigation = useNavigation();
 
-  const persons = [
-    { id: "1", name: "Earnest Green" },
-    { id: "2", name: "Winston Orn" },
-    { id: "3", name: "Carlton Collins" },
-    { id: "4", name: "Malcolm Labadie" },
-    { id: "5",name: "Michelle Dare" },
-  ];
-
   const Item = ({ name, storeId }) => (
-    <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('Store Page', { id: storeId})}>
+    <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('Store Page', { id: storeId })}>
+      <Image style={styles.image} resizeMode="cover" source={storePlaceholder} />
       <Text style={styles.itemText}>{name}</Text>
     </TouchableOpacity>
   );
@@ -31,11 +27,19 @@ const SearchResults = ({ storeData }) => {
       marginTop: 15,
       backgroundColor: 'white'
     },
+    image: {
+      width: 45,
+      height:45,
+      borderRadius: 50
+    },
     item: {
-      padding: 10
+      flexDirection:"row",
+      padding: 5
     },
     itemText: {
-      fontSize: 24
+      fontSize: 20,
+      marginTop: 10,
+      paddingLeft: 10
     },
     itemSeperator: { 
       height: 0.5, 
