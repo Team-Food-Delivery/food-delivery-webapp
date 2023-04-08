@@ -23,18 +23,15 @@ const styles = StyleSheet.create({
 		flexDirection:"row",
 	},
 	searchBar: {
-		width: "90%",
+		width: "100%",
 		flexDirection:"row",
 		justifyContent: "space-between"
 	},
 	textInput: {
 		color: 'gray',
-		width: "90%",
+		width: "100%",
 		fontSize: 15,
 		padding: 5
-	},
-	closeIcon: {
-		marginRight: 45
 	},
 	searchIcon: {
 		marginLeft: 1, 
@@ -67,7 +64,6 @@ const Search = ({ storeSearch, setStoreSearch }) => {
 							name="cross" 
 							size={25} 
 							color="black" 
-							style={styles.closeIcon} 
 							onPress={() => setStoreSearch("")}
 						/>
 					)}  
