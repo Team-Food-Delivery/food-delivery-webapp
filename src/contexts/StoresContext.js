@@ -1,24 +1,24 @@
 import React, { createContext, useState } from 'react';
-import useFetch from '../components/utiities/useFetch';
-import { getStorageObject } from '../services/localStorage';
-
-import { FOOD_DELIVERY_API } from '@env';
+//import { getStorageObject } from '../services/localStorage';
 
 export const StoresContext = createContext();
 
 export function StoresProvider({ children }) {
   const [storesData, setStoresData] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
+  const [storeID, setStoreID] = useState(0);
 
   const setSearchData = async (data) => {
     await setStoresData(data)
   }
 
+  const setIndividualStoreId = (id) => {
+    setStoreID(id);
+  }
+
   const values = {
     storesData,
-    isLoading,
-    error,
+    setIndividualStoreId,
+    storeID,
     setSearchData
   };
 
