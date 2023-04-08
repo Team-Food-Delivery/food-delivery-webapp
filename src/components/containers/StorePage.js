@@ -17,8 +17,6 @@ const StorePage = () => {
   }
 
   useEffect(() => {
-    // const theStore = storesData.find(store => store.id == route.params.id);
-    // setStore(theStore)
     getIndividualStore('/store', storeBody)
       .then(store => {
         console.log(store);
