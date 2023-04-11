@@ -29,22 +29,16 @@ const styles = StyleSheet.create({
 const MainStore = () => {
     // const [storeSearch, setStoreSearch] = useState();
     const { authData } = useContext(AuthContext);
+    const allStoreBody = {
+        start_from: 0,
+        size: 10,
+        sort_by: 'rating',
+        direction: 'desc'
+    }
     
     // Change the FOOD_DELIVERY_API in .env file everytime you start up ngrok and using your phone
     // If not phone, then set FOOD_DELIVERY_API=htttp://localhost:8000 in .env file
-    const { data, loading, error } = useFetch(`${FOOD_DELIVERY_API}/all/stores`, {
-        method: 'POST',
-        headers: {
-            Authorization: `Bearer ${authData.jwtToken}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            start_from: 0,
-            size: 10,
-            sort_by: 'rating',
-            direction: 'desc'
-        })
-    });
+    const { data, loading, error } = useFetch('all/stores', allStoreBody);
     return(
         <SafeAreaView style={styles.container}>
             <ScrollView>

@@ -1,13 +1,13 @@
 import { SafeAreaView, View, Text } from "react-native";
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 
 import LoadingIndicator from "../elements/ActivityIndicator";
 import { StoresContext } from "../../contexts/StoresContext";
-import { postRequest as getIndividualStore } from "../../services/StoreService";
+import useFetch from "../utiities/useFetch";
+
 
 const StorePage = () => {
   const { storeID } = useContext(StoresContext);
-  const [store, setStore] = useState(null);
 
   const storeBody = {
     start_from: 0,
@@ -16,25 +16,15 @@ const StorePage = () => {
     field_value: `${storeID}`
   }
 
-  useEffect(() => {
-    getIndividualStore('/store', storeBody)
-      .then(store => {
-        console.log(store);
-        setStore(store)
-      })
-      .catch(e => new Error(e))
-  }, [])
+  const { data, loading, error } = useFetch('store', storeBody);
 
   return (
-    store === null ? (
-      <LoadingIndicator />
-    ) : (
-      <SafeAreaView>
-        <View>
-          <Text>{store[0].store}</Text>
-        </View>
-      </SafeAreaView>
-    )
+    <SafeAreaView>
+      <View>
+        {loading && <LoadingIndicator />}
+        {!loading && data && <Text>{data[0].store}</Text>}
+      </View>
+    </SafeAreaView>
   )
 }
 
