@@ -16,6 +16,7 @@
 - FOOD_DELIVERY_API
 #### Setup
 1. Open terminal, run `ngrok http 8000`
-2. Set FOOD_DELIVERY_API=`https://`<i>your-generated-url<i>`.ngrok.io`
+2. If using phone, then Set FOOD_DELIVERY_API=`https://`<i>your-generated-url<i>`.ngrok.io`.
+3. If usine browser, then Set FOOD_DELIVERY_API=`http://localhost:8000`
 ## Visualize Application Logic
 - [See Flow](https://stately.ai/registry/editor/ed2a7159-2b77-4113-a593-ff67e25f62b1?machineId=5ef9ce9a-90a4-4809-8d3a-eecec92ebc1a)
