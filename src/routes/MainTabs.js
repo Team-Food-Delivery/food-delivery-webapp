@@ -1,35 +1,15 @@
-import { useContext } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator  } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { StoresProvider } from '../contexts/StoresContext';
-import { AuthContext } from '../contexts/AuthContext';
 
 import MainStore from '../components/containers/MainStore';
 import MainSearch from '../components/containers/MainSearch';
 import StorePage from '../components/containers/StorePage';
+import Account from '../components/containers/Account';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-
-const Account = () => {
-  const { setLogout } = useContext(AuthContext);
-
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <TouchableOpacity 
-        onPress={setLogout}
-        style={{
-          alignItems: 'center',
-          backgroundColor: '#DDDDDD', 
-          padding: 10
-      }}>
-        <Text>Sign Out</Text>
-      </TouchableOpacity>
-    </View>
-  );
-}
 
 const tabStyles = {
   height: 65,
@@ -99,16 +79,6 @@ const BottomTabs = () => {
     </Tab.Navigator>
   )
 }
-
-/*
-  TODO: 
-  1. From SearchResults.js, pass id(from fetch) in navigation params to store page
-  2. When StorePage.js receive route, call context where the saved store page data is
-  3. Filter route id with store page json id to show only data on clicked search result.
-
-  Need to rem
-*/
-
 
 const MainTabs = () => {
   return (
