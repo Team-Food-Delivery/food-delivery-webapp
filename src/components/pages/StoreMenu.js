@@ -32,7 +32,14 @@ const styles = StyleSheet.create({
         shadowRadius: 6,
         shadowOpacity: 0.2,
         paddingHorizontal: 10,
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        backgroundColor:'#fff',
+        borderWidth: 1,
+        borderColor: '#fff',
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        margin: 15,
+        borderRadius: 20
     },
     foodCategoryName: {
         marginLeft: 10,
@@ -52,6 +59,7 @@ const styles = StyleSheet.create({
 })
 
 const renderFoodItem = (item, windowWidth) => {
+    // For larger screen, depending on width size then calculate width / number
     return <TouchableOpacity style={[styles.foodItem, { width: windowWidth / 2}]}>
         <Text style={styles.dish}>{item.dish}</Text>
         <View style={styles.foodDetails}>
