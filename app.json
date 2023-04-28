@@ -12,8 +12,14 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "extra": {
+      "eas": {
+        "projectId": "b3d232e7-f50b-42d0-aa7d-b75941642284"
+      }
+    },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/b3d232e7-f50b-42d0-aa7d-b75941642284"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -30,6 +36,10 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "owner": "flashcabaja64",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
     }
   }
 }
