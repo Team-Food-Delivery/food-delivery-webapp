@@ -3,8 +3,8 @@ import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cogn
 import { setStorageItem, getStorageObject, removeStorageItem } from './localStorage';
 
 const poolData = {
-  UserPoolId: USER_POOL_ID,
-  ClientId: CLIENT_ID
+  UserPoolId: "us-west-1_qXvY7Jy4Q",
+  ClientId: "5ri0bhtvkebgj90edg6cqcog06"
 }
 
 const userPool = new CognitoUserPool(poolData);
