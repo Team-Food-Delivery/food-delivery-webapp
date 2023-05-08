@@ -58,16 +58,21 @@ const styles = StyleSheet.create({
     }
 })
 
-const renderFoodItem = (item, windowWidth) => {
+const renderFoodItem = (item, itemId, windowWidth) => {
     // For larger screen, depending on width size then calculate width / number
-    return <TouchableOpacity style={[styles.foodItem, { width: windowWidth / 2}]}>
-        <Text style={styles.dish}>{item.dish}</Text>
-        <View style={styles.foodDetails}>
-            <Text style={styles.description}>{item.description}</Text>
-            <Image style={styles.foodImage} source={{uri: item.image_url}}/>
-        </View>
-        <Text style={styles.price}>${item.price}</Text>
-    </TouchableOpacity>
+    return (
+        <TouchableOpacity 
+            key={`${item.dish}-${itemId}`} 
+            style={[styles.foodItem, { width: windowWidth / 2}]}
+        >
+            <Text style={styles.dish}>{item.dish}</Text>
+            <View style={styles.foodDetails}>
+                <Text style={styles.description}>{item.description}</Text>
+                <Image style={styles.foodImage} source={{uri: item.image_url}}/>
+            </View>
+            <Text style={styles.price}>${item.price}</Text>
+        </TouchableOpacity>
+    )
         
 }
 
@@ -76,18 +81,17 @@ const StoreMenu = ({category}) => {
     return (
         <View>
             <Text style={styles.name}>Menu</Text>
-            {Object.keys(category).map(foodCategory => {
-                return <View style={styles.foodCategoryContainer}>
+            {Object.keys(category).map((foodCategory, idx) => {
+                return <View key={idx} style={styles.foodCategoryContainer}>
                     <Text style={styles.foodCategoryName}>
                         {foodCategory.charAt(0).toUpperCase() + foodCategory.slice(1)}
                     </Text>
                     <FlatList
-                        key={foodCategory}
                         horizontal
                         showsHorizontalScrollIndicator={false}
                         data={category[foodCategory]}
                         keyExtractor={item => item.id}
-                        renderItem={({item}) => renderFoodItem(item, windowWidth)}
+                        renderItem={({item}) => renderFoodItem(item, item.id, windowWidth)}
                     />
                 </View>
             })}
