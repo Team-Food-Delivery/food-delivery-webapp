@@ -7,6 +7,8 @@ import MainStore from '../components/containers/MainStore';
 import MainSearch from '../components/containers/MainSearch';
 import StorePage from '../components/containers/StorePage';
 import Account from '../components/containers/Account';
+import ManageAddresses from "../components/pages/ManageAddresses";
+import EditAddresses from "../components/pages/EditAddresses";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -95,6 +97,31 @@ const MainTabs = () => {
             component={StorePage}
             options={{
               headerTitle: "",
+              transitionSpec: {
+                open: animationConfig,
+                close: animationConfig,
+              },
+            }}
+          />
+        </Stack.Group>
+        <Stack.Group screenOptions={{ presentation: 'modal' }}>
+          <Stack.Screen 
+            name="ManageAddresses"
+            component={ManageAddresses}
+            options={{
+              headerTitle: "",
+              gestureDirection: 'vertical',
+              transitionSpec: {
+                open: animationConfig,
+                close: animationConfig,
+              },
+            }}
+          />
+          <Stack.Screen 
+            name="EditAddress"
+            component={EditAddresses}
+            options={{
+              headerTitle: "Save Address",
               transitionSpec: {
                 open: animationConfig,
                 close: animationConfig,

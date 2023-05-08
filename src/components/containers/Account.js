@@ -2,13 +2,14 @@ import { useContext } from 'react';
 import { SafeAreaView, View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import { AuthContext } from '../../contexts/AuthContext';
+import { pageColor } from '../../styles/globals';
 
-const Account = () => {
+const Account = ({navigation}) => {
   const { setLogout } = useContext(AuthContext);
 
   const accountData = [
-    { id: 1, name: 'Manage Account', subtitle: 'Update information' },
-    { id: 2, name: 'Address', subtitle: 'Add or remove a delivery address' }
+    { id: 1, name: 'Manage Account', subtitle: 'Update information', routeName: 'none' },
+    { id: 2, name: 'Address', subtitle: 'Add, edit, or remove a delivery address', routeName: 'ManageAddresses' }
   ]
 
   const styles = StyleSheet.create({
@@ -54,8 +55,8 @@ const Account = () => {
     return <View style={styles.itemSeperator} />
   };
 
-  const Item = ({ name, subtitle }) => (
-    <TouchableOpacity style={styles.itemContainer}>
+  const Item = ({ name, subtitle, routeName }) => (
+    <TouchableOpacity style={styles.itemContainer} onPress={() => navigation.navigate(routeName)}>
       <View style={styles.textContainer}>
         <Text style={styles.itemText}>{name}</Text>
         <Text style={styles.itemSubtitle}>{subtitle}</Text>
@@ -67,7 +68,7 @@ const Account = () => {
   );
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={pageColor.backgroundContainer}>
       <View style={styles.accountPageContainer}>
         <Text style={styles.accountPageTitle}>Account</Text>
       </View>
@@ -76,7 +77,7 @@ const Account = () => {
         keyExtractor={item => item.id}
         ItemSeparatorComponent={ItemSeparatorView}
         renderItem={({ item }) => (
-          <Item name={item.name} subtitle={item.subtitle} />
+          <Item name={item.name} subtitle={item.subtitle} routeName={item.routeName} />
         )}
       />
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

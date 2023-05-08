@@ -3,7 +3,7 @@ import { useContext } from 'react';
 
 import LoadingIndicator from "../elements/ActivityIndicator";
 import { StoresContext } from "../../contexts/StoresContext";
-import useFetch from "../utiities/useFetch";
+import { useFetchStores } from "../../services/APIService";
 
 import StoreHeader from "../pages/StoreHeader";
 import StoreMenu from "../pages/StoreMenu";
@@ -25,7 +25,7 @@ const StorePage = () => {
     field_value: `${storeID}`
   }
 
-  const { data, loading, error } = useFetch('store', storeBody);
+  const { data, loading, error } = useFetchStores('store', storeBody);
 
   return (
     <SafeAreaView style={styles.container}>
