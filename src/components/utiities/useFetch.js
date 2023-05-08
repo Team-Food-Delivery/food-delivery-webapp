@@ -16,7 +16,7 @@ const useFetch = (endpoint, body={}, method='POST') => {
       if (active) setLoading(true);
 
       try {
-        const response = await fetch(`${FOOD_DELIVERY_API}/${endpoint}`, {
+        const response = await fetch(`${FOOD_DELIVERY_API}${endpoint}`, {
           method,
           headers: {
               Authorization: `Bearer ${authData.jwtToken}`,
