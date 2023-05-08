@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native';
 import Search from '../pages/Search';
 import SearchResults from '../pages/SearchResults';
 import { StoresContext } from '../../contexts/StoresContext';
-import { postRequest as getDefaultSearch } from '../../services/StoreService';
+import { postRequest as getDefaultSearch } from '../../services/APIService';
 
 const MainSearch = () => {
   const { setSearchData } = useContext(StoresContext);
@@ -21,7 +21,7 @@ const MainSearch = () => {
   }
 
   useEffect(() => {
-    getDefaultSearch('/general', defaultSearchStoreBody).then(data => {
+    getDefaultSearch('general', defaultSearchStoreBody).then(data => {
       setSearchData(data);
       setStoreData(data)
       console.log(storeData)

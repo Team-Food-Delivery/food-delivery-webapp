@@ -7,9 +7,7 @@ import StoreStyles from "../../styles/Store.styles";
 import BurgerIcon from '../../img/burger-outline.png'
 import PizzaSliceIcon from '../../img/pizza-slice-outline.png'
 import TurkeyIcon from '../../img/christmas-dinner-outline.png'
-import useFetch from "../utiities/useFetch";
-import { FOOD_DELIVERY_API } from '@env';
-import { AuthContext } from "../../contexts/AuthContext";
+import { useFetchStores } from "../../services/APIService";
 import LoadingIndicator from "../elements/ActivityIndicator";
 
 // Fake data with static images, both should come from server
@@ -28,7 +26,6 @@ const styles = StyleSheet.create({
 
 const MainStore = () => {
     // const [storeSearch, setStoreSearch] = useState();
-    const { authData } = useContext(AuthContext);
     const allStoreBody = {
         start_from: 0,
         size: 10,
@@ -38,7 +35,8 @@ const MainStore = () => {
     
     // Change the FOOD_DELIVERY_API in .env file everytime you start up ngrok and using your phone
     // If not phone, then set FOOD_DELIVERY_API=htttp://localhost:8000 in .env file
-    const { data, loading, error } = useFetch('all/stores', allStoreBody);
+    const { data, loading, error } = useFetchStores('all/stores', allStoreBody);
+
     return(
         <SafeAreaView style={styles.container}>
             <ScrollView>
