@@ -9,6 +9,7 @@ import StorePage from '../components/containers/StorePage';
 import Account from '../components/containers/Account';
 import ManageAddresses from "../components/pages/ManageAddresses";
 import EditAddresses from "../components/pages/EditAddresses";
+import ShoppingCart from '../components/containers/ShoppingCart';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -33,7 +34,7 @@ const animationConfig = {
   },
 };
 
-const BottomTabs = () => {
+const Tabs = () => {
   return (
     <Tab.Navigator 
       initialRouteName="Home" 
@@ -78,6 +79,18 @@ const BottomTabs = () => {
           )
         }}
       />
+      <Tab.Screen 
+          name="Shopping Cart" 
+          component={ShoppingCart} 
+          options={{
+            tabBarLabel: "Shopping Cart",
+            tabBarLabelPosition: "below-icon",
+            tabBarActiveTintColor: "#E32F45",
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="cart-outline" size={24} color={color} />
+            )
+          }}
+      />
     </Tab.Navigator>
   )
 }
@@ -88,7 +101,7 @@ const MainTabs = () => {
       <Stack.Navigator>
         <Stack.Screen 
           name="Main Tabs"
-          component={BottomTabs}
+          component={Tabs}
           options={{ headerShown: false }}
         />
         <Stack.Group screenOptions={{ presentation: 'modal' }}>
